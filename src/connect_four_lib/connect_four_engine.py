@@ -1,8 +1,8 @@
 import random
 import time
 
-from entities.connect_four_heuristic import ConnectFourHeuristic
-from entities.connect_four_judge import ConnectFourJudge
+from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
+from connect_four_lib.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 INFINITY = 1000000

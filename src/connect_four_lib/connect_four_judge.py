@@ -1,4 +1,4 @@
-from entities.judge import Judge
+from connect_four_lib.judge import Judge
 from game_state import GameState
 
 
