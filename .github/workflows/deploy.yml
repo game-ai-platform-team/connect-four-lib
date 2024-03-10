@@ -8,10 +8,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: game-ai-platform-team/setup-poetry@main
+    
+    - name: Configure PyPI Token
+      run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
 
     - name: Build and publish to pypi
-      uses: JRubics/poetry-publish@v2.0
-      with:
-        pypi_token: ${{ secrets.PYPI_TOKEN }}
-        poetry_install_options: "--without dev"
-        poetry_publish_options: "--build"
+      run: poetry publish --build
