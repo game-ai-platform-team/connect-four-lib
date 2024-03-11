@@ -111,7 +111,95 @@ class ConnectFourJudge(Judge):
         return len(self.__moves) == 42
 
     def __is_win(self) -> bool:
-        pass
+        col = self.__latest_move[0]
+        row = self.__latest_move[1]
+        print(self.__latest_move)
+
+        if (
+            self.vertical_win(col, row)
+            or self.horizontal_win(col, row)
+            or self.diagonal_upwards_win(col, row)
+            or self.diagonal_downwards_win(col, row)
+        ):
+            return True
+
+        return False
+
+    def vertical_win(self, col, row) -> bool:
+        if row >= 3:
+            return (
+                self.__board[col][row]
+                == self.__board[col][row - 1]
+                == self.__board[col][row - 2]
+                == self.__board[col][row - 3]
+            )
+        return False
+
+    def horizontal_win(self, col, row) -> bool:
+        combo = 0
+        combo_color = self.__board[col][row]
+        for column in range(len(self.__board) - 1):
+            if self.__board[column][row] == combo_color:
+                combo += 1
+                if combo == 4:
+                    return True
+            else:
+                combo = 0
+        return False
+
+    def diagonal_upwards_win(self, col, row) -> bool:
+        columns = len(self.__board) - 1
+        rows = len(self.__board[0]) - 1
+        combo = 1
+        combo_color = self.__board[col][row]
+
+        space_above = min(3, columns - col, rows - row)
+        print(f"cols: {columns - col} rows: {rows - row}")
+        space_below = min(3, col, row)
+        print(f"sa =  {space_above} sb = {space_below}")
+
+        if space_above + space_below < 3:
+            return False
+
+        for i in range(1, space_above + 1):
+            if self.__board[col + i][row + i] != combo_color:
+                break
+            combo += 1
+            if combo >= 4:
+                return True
+
+        for i in range(1, space_below + 1):
+            if self.__board[col - i][row - i] != combo_color:
+                break
+            combo += 1
+            if combo >= 4:
+                return True
+
+    def diagonal_downwards_win(self, col, row) -> bool:
+        columns = len(self.__board) - 1
+        rows = len(self.__board[0]) - 1
+        combo = 1
+        combo_color = self.__board[col][row]
+
+        space_above = min(3, col, rows - row)
+        space_below = min(3, columns - col, row)
+
+        if space_above + space_below < 3:
+            return False
+
+        for i in range(1, space_above + 1):
+            if self.__board[col - i][row + i] != combo_color:
+                break
+            combo += 1
+            if combo >= 4:
+                return True
+
+        for i in range(1, space_below + 1):
+            if self.__board[col + i][row - i] != combo_color:
+                break
+            combo += 1
+            if combo >= 4:
+                return True
 
     def is_valid_location(self, column):
         return self.__board[column][-1] == 0
