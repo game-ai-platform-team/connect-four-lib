@@ -274,7 +274,7 @@ class TestConnectFourJudge(unittest.TestCase):
         judge = ConnectFourJudge()
         for i in [0, 1, 0, 3, 2, 2, 1, 1, 0, 0]:
             judge.add_move(i)
-        self.assertEqual(judge.is_game_over, GameState.WIN)
+        self.assertEqual(judge.is_game_over(), GameState.WIN)
 
     def test_move_list_is_empty_at_start(self):
         self.assertEqual(self.judge.get_all_moves(), [])
