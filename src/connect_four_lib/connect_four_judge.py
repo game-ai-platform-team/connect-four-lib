@@ -43,6 +43,11 @@ class ConnectFourJudge(Judge):
         if not self.__check_illegal_move(int(move)):
             return GameState.ILLEGAL
 
+        if self.__is_draw():
+            state = GameState.DRAW
+        elif self.__is_win():
+            state = GameState.WIN
+
         return state
 
     def add_move(self, move: str) -> tuple[int, int]:
@@ -100,9 +105,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __is_draw(self) -> bool:
-        if len(self.__moves) >= 6 * 7:
-            return True
-        return False
+        return len(self.__moves) == 42
 
     def __is_win(self) -> bool:
         pass
