@@ -308,13 +308,6 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_get_valid_locations(self):
         self.assertEqual(self.judge.get_valid_locations(), [0, 1, 2, 3, 4, 5, 6])
 
-        self.assertEqual(heuristic.dup_windows[0][0], -2)
-        self.assertEqual(heuristic.dup_windows[1][0], 8)
-        self.assertEqual(heuristic.dup_windows[2][0], -4)
-        self.assertEqual(heuristic.dup_windows[3][0], 2)
-        self.assertEqual(heuristic.dup_windows[3][1], -2)
-        self.assertEqual(heuristic.dup_windows[3][2], 2)
-
     def test_evaluate_dup_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
         board = [
