@@ -80,6 +80,23 @@ class TestConnectFourHeuristic(unittest.TestCase):
         self.assertEqual(heuristic.horizontal_windows[3][0], 0)
         self.assertEqual(heuristic.horizontal_windows[0][0], 0)
 
+    def test_evaluate_horizontal_win(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [
+            [1, 2, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1), (3, 0)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.horizontal_windows[0][0], 1000)
+        self.assertEqual(heuristic.evaluate_entire_board(), 994)
+
+
     def test_evaluate_vertical_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
         board = [

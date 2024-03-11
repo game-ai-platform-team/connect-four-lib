@@ -21,7 +21,7 @@ class WinChecker:
                 ):
                     return True
 
-        # Check for diagonal win (top-left to bottom-right)
+        # Check for diagonal upwards win
         for row in range(len(board) - 3):
             for col in range(len(board[0]) - 3):
                 if (
@@ -33,7 +33,7 @@ class WinChecker:
                 ):
                     return True
 
-        # Check for diagonal win (top-right to bottom-left)
+        # Check for diagonal downwards win
         for row in range(3, len(board)):
             for col in range(len(board[0]) - 3):
                 if (
