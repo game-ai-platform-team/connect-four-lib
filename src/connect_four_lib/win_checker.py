@@ -12,19 +12,37 @@ class WinChecker:
         # Check for vertical win
         for col in range(len(board[0])):
             for row in range(len(board) - 3):
-                if board[row][col] == board[row + 1][col] == board[row + 2][col] == board[row + 3][col] != 0:
+                if (
+                    board[row][col]
+                    == board[row + 1][col]
+                    == board[row + 2][col]
+                    == board[row + 3][col]
+                    != 0
+                ):
                     return True
 
         # Check for diagonal win (top-left to bottom-right)
         for row in range(len(board) - 3):
             for col in range(len(board[0]) - 3):
-                if board[row][col] == board[row + 1][col + 1] == board[row + 2][col + 2] == board[row + 3][col + 3] != 0:
+                if (
+                    board[row][col]
+                    == board[row + 1][col + 1]
+                    == board[row + 2][col + 2]
+                    == board[row + 3][col + 3]
+                    != 0
+                ):
                     return True
 
         # Check for diagonal win (top-right to bottom-left)
         for row in range(3, len(board)):
             for col in range(len(board[0]) - 3):
-                if board[row][col] == board[row - 1][col + 1] == board[row - 2][col + 2] == board[row - 3][col + 3] != 0:
+                if (
+                    board[row][col]
+                    == board[row - 1][col + 1]
+                    == board[row - 2][col + 2]
+                    == board[row - 3][col + 3]
+                    != 0
+                ):
                     return True
 
         return False

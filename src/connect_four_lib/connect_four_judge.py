@@ -108,7 +108,7 @@ class ConnectFourJudge(Judge):
             return False
 
         return True
-    
+
     def is_game_over(self) -> GameState:
         if self.__is_win():
             return GameState.WIN
