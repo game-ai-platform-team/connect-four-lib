@@ -7,11 +7,10 @@ class ConnectFourJudge(Judge):
     def __init__(
         self,
         moves: list[int] | None = None,
-        board: list[list[int]] | None = None,heuristic: ConnectFourHeuristic | None = None,
+        board: list[list[int]] | None = None,
+        heuristic: ConnectFourHeuristic | None = None,
     ) -> None:
-        rows = 6
-        columns = 7
-        self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
+        self.__board: list[list[int]] = board or self.initialize_board()
         self.__moves: list[int] = moves or []
         self.__heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
@@ -19,7 +18,7 @@ class ConnectFourJudge(Judge):
     def board(self) -> list[list[int]]:
         return self.__board
 
-    def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
+    def initialize_board(self, rows: int = 6, columns: int = 7) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
         return board
 
