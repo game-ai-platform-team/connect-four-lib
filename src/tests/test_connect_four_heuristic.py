@@ -96,7 +96,6 @@ class TestConnectFourHeuristic(unittest.TestCase):
         self.assertEqual(heuristic.horizontal_windows[0][0], 1000)
         self.assertEqual(heuristic.evaluate_entire_board(), 994)
 
-
     def test_evaluate_vertical_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
         board = [
