@@ -76,6 +76,14 @@ class TestConnectFourHeuristic(unittest.TestCase):
             [0, 0, 0, 0, 0, 0],
         ]
         for i in [(4, 0), (3, 0), (5, 0), (0, 0), (1, 0)]:
+        board = [[2,0,0,0,0,0], 
+                 [1,0,0,0,0,0], 
+                 [0,0,0,0,0,0],
+                 [2,0,0,0,0,0], 
+                 [1,0,0,0,0,0], 
+                 [1,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(4,0), (3,0), (5,0), (0,0), (1,0)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
         self.assertEqual(heuristic.horizontal_windows[3][0], 0)
         self.assertEqual(heuristic.horizontal_windows[0][0], 0)
@@ -274,39 +282,55 @@ class TestConnectFourJudge(unittest.TestCase):
         judge = ConnectFourJudge()
         for i in [0, 1, 0, 3, 2, 2, 1, 1, 0, 0]:
             judge.add_move(i)
-        self.assertEqual(judge.is_game_over(), GameState.WIN)
+        self.assertEqual(judge.is_game_over, GameState.WIN)
 
     def test_move_list_is_empty_at_start(self):
         self.assertEqual(self.judge.get_all_moves(), [])
 
-    def test_add_move_updates_moves(self):
-        self.judge.add_move(0)
+    def test_evaluate_vertical_with_one_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[1,1,1,0,0,0], 
+                 [2,2,0,0,0,0], 
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(0,0), (0,1), (0,2), (1,0), (1,1)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.vertical_windows[0][0], 8)
+        self.assertEqual(heuristic.vertical_windows[0][1], 4)
+        self.assertEqual(heuristic.vertical_windows[0][2], 2)
+        self.assertEqual(heuristic.vertical_windows[1][0], -4)
+        self.assertEqual(heuristic.vertical_windows[1][1], -2)
+        self.assertEqual(heuristic.vertical_windows[1][2], 0)
 
-        self.assertEqual(self.judge.get_all_moves(), ["0"])
+    def test_evaluate_vertical_with_both_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[1,2,1,2,0,0], 
+                 [1,0,0,0,0,0], 
+                 [2,1,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(0,0), (0,1), (0,2), (0,3), (1,0), (2,0), (2,1)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.vertical_windows[0][1], 0)
+        self.assertEqual(heuristic.vertical_windows[0][2], 0)
+        self.assertEqual(heuristic.vertical_windows[2][0], 0)
 
-    def test_calculate_latest_move(self):
-        self.judge.add_move("3")
-        latest_move = self.judge.get_last_move()
-        self.assertEqual(latest_move, (3, 0))
-
-    def test_remove_latest(self):
-        self.judge.add_move("3")
-        self.judge.add_move("2")
-        self.judge.remove_last_move()
-        latest_move = self.judge.get_last_move()
-        self.assertEqual(latest_move, (3, 0))
-
-    def test_calculate_latest_move_after_four_moves(self):
-        self.judge.add_move("3")
-        self.judge.add_move("3")
-        self.judge.add_move("3")
-        self.judge.add_move("3")
-
-        latest_move = self.judge.get_last_move()
-        self.assertEqual(latest_move, (3, 3))
-
-    def test_get_valid_locations(self):
-        self.assertEqual(self.judge.get_valid_locations(), [0, 1, 2, 3, 4, 5, 6])
+    def test_evaluate_dup_with_one_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[2,0,0,0,0,0], 
+                 [1,0,0,0,0,0], 
+                 [2,1,0,0,0,0],
+                 [1,2,1,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(3,0), (3,1), (3,2), (2,0), (2,1), (1,0), (0,0)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
 
     def test_evaluate_dup_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
@@ -397,3 +421,193 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(heuristic.ddown_windows[0][4], 0)
         self.assertEqual(heuristic.ddown_windows[0][3], 0)
         self.assertEqual(heuristic.ddown_windows[1][3], 0)
+
+    def test_downwards_diagonal_win_in_corner_is_recognized(self):
+        judge = ConnectFourJudge()
+        for i in [0, 1, 0, 3, 2, 2, 1, 1, 0, 0]:
+            judge.add_move(i)
+        self.assertEqual(judge.is_game_over(), GameState.WIN)
+
+    def test_move_list_is_empty_at_start(self):
+        self.assertEqual(self.judge.get_all_moves(), [])
+
+    def test_evaluate_vertical_with_one_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[1,1,1,0,0,0], 
+                 [2,2,0,0,0,0], 
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(0,0), (0,1), (0,2), (1,0), (1,1)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.vertical_windows[0][0], 8)
+        self.assertEqual(heuristic.vertical_windows[0][1], 4)
+        self.assertEqual(heuristic.vertical_windows[0][2], 2)
+        self.assertEqual(heuristic.vertical_windows[1][0], -4)
+        self.assertEqual(heuristic.vertical_windows[1][1], -2)
+        self.assertEqual(heuristic.vertical_windows[1][2], 0)
+
+    def test_evaluate_vertical_with_both_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[1,2,1,2,0,0], 
+                 [1,0,0,0,0,0], 
+                 [2,1,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(0,0), (0,1), (0,2), (0,3), (1,0), (2,0), (2,1)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.vertical_windows[0][1], 0)
+        self.assertEqual(heuristic.vertical_windows[0][2], 0)
+        self.assertEqual(heuristic.vertical_windows[2][0], 0)
+
+    def test_evaluate_dup_with_one_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [[2,0,0,0,0,0], 
+                 [1,0,0,0,0,0], 
+                 [2,1,0,0,0,0],
+                 [1,2,1,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0],
+                 [0,0,0,0,0,0]]
+        for i in [(3,0), (3,1), (3,2), (2,0), (2,1), (1,0), (0,0)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+
+        self.assertEqual(heuristic.dup_windows[0][0], -2)
+        self.assertEqual(heuristic.dup_windows[1][0], 8)
+        self.assertEqual(heuristic.dup_windows[2][0], -4)
+        self.assertEqual(heuristic.dup_windows[3][0], 2)
+        self.assertEqual(heuristic.dup_windows[3][1], -2)
+        self.assertEqual(heuristic.dup_windows[3][2], 2)
+
+    def test_evaluate_dup_with_both_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [2, 1, 2, 1, 0, 0],
+            [2, 1, 2, 1, 2, 0],
+            [1, 2, 1, 2, 1, 2],
+        ]
+        for i in [
+            (3, 0),
+            (3, 1),
+            (3, 2),
+            (4, 0),
+            (4, 1),
+            (4, 2),
+            (4, 3),
+            (5, 0),
+            (5, 1),
+            (5, 2),
+            (5, 3),
+            (5, 4),
+            (6, 0),
+            (6, 1),
+            (6, 2),
+            (6, 3),
+            (6, 4),
+            (6, 5),
+        ]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+
+        self.assertEqual(heuristic.dup_windows[2][0], 0)
+        self.assertEqual(heuristic.dup_windows[1][0], 4)
+        self.assertEqual(heuristic.dup_windows[0][2], 0)
+        self.assertEqual(heuristic.dup_windows[1][2], 0)
+        self.assertEqual(heuristic.dup_windows[2][2], 0)
+        self.assertEqual(heuristic.dup_windows[0][2], 0)
+
+    def test_evaluate_ddown_with_one_players_moves(self):
+        heuristic = ConnectFourHeuristic(True)
+        board = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 1, 2, 0, 0, 0],
+            [2, 2, 1, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(1, 0), (2, 0), (1, 1), (2, 1), (2, 2), (1, 2), (0, 0), (2, 3)]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.dup_windows[0][0], 8)
+        self.assertEqual(heuristic.dup_windows[1][1], 4)
+        self.assertEqual(heuristic.dup_windows[0][1], -4)
+        self.assertEqual(heuristic.dup_windows[2][2], 2)
+
+    def test_evaluate_ddown_with_both_players_moves(self):
+        heuristic = ConnectFourHeuristic(False)
+        board = [
+            [1, 2, 1, 2, 1, 0],
+            [2, 1, 2, 1, 0, 0],
+            [2, 1, 2, 1, 0, 0],
+            [2, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [
+            (0, 0),
+            (0, 1),
+            (0, 2),
+            (0, 3),
+            (0, 4),
+            (1, 0),
+            (1, 1),
+            (1, 2),
+            (1, 3),
+            (2, 0),
+            (2, 1),
+            (2, 2),
+            (2, 3),
+            (3, 0),
+        ]:
+            heuristic.evaluate_relevant_windows(i[0], i[1], board)
+        self.assertEqual(heuristic.ddown_windows[0][4], 0)
+        self.assertEqual(heuristic.ddown_windows[0][3], 0)
+        self.assertEqual(heuristic.ddown_windows[1][3], 0)
+
+    def test_downwards_diagonal_win_in_corner_is_recognized(self):
+        judge = ConnectFourJudge()
+        for i in [0, 1, 0, 3, 2, 2, 1, 1, 0, 0]:
+            judge.add_move(i)
+        self.assertEqual(judge.is_game_over(), GameState.WIN)
+
+    def test_move_list_is_empty_at_start(self):
+        self.assertEqual(self.judge.get_all_moves(), [])
+
+    def test_add_move_updates_moves(self):
+        self.judge.add_move(0)
+
+        self.assertEqual(self.judge.get_all_moves(), ["0"])
+
+    def test_calculate_latest_move(self):
+        self.judge.add_move("3")
+        latest_move = self.judge.get_last_move()
+        self.assertEqual(latest_move, (3, 0))
+
+    def test_remove_latest(self):
+        self.judge.add_move("3")
+        self.judge.add_move("2")
+        self.judge.remove_last_move()
+        latest_move = self.judge.get_last_move()
+        self.assertEqual(latest_move, (3, 0))
+
+    def test_calculate_latest_move_after_four_moves(self):
+        self.judge.add_move("3")
+        self.judge.add_move("3")
+        self.judge.add_move("3")
+        self.judge.add_move("3")
+
+        latest_move = self.judge.get_last_move()
+        self.assertEqual(latest_move, (3, 3))
+
+    def test_get_valid_locations(self):
+        self.assertEqual(self.judge.get_valid_locations(), [0, 1, 2, 3, 4, 5, 6])
+
