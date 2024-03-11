@@ -131,17 +131,18 @@ class TestConnectFourHeuristic(unittest.TestCase):
         for i in [(3, 0), (3, 1), (3, 2), (2, 0), (2, 1), (1, 0), (0, 0)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
 
-
     def test_evaluate_vertical_with_one_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[1,1,1,0,0,0], 
-                 [2,2,0,0,0,0], 
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(0,0), (0,1), (0,2), (1,0), (1,1)]:
+        board = [
+            [1, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
         self.assertEqual(heuristic.vertical_windows[0][0], 8)
         self.assertEqual(heuristic.vertical_windows[0][1], 4)
@@ -152,14 +153,16 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_evaluate_vertical_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[1,2,1,2,0,0], 
-                 [1,0,0,0,0,0], 
-                 [2,1,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(0,0), (0,1), (0,2), (0,3), (1,0), (2,0), (2,1)]:
+        board = [
+            [1, 2, 1, 2, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (2, 0), (2, 1)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
         self.assertEqual(heuristic.vertical_windows[0][1], 0)
         self.assertEqual(heuristic.vertical_windows[0][2], 0)
@@ -167,14 +170,16 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_evaluate_dup_with_one_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[2,0,0,0,0,0], 
-                 [1,0,0,0,0,0], 
-                 [2,1,0,0,0,0],
-                 [1,2,1,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(3,0), (3,1), (3,2), (2,0), (2,1), (1,0), (0,0)]:
+        board = [
+            [2, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(3, 0), (3, 1), (3, 2), (2, 0), (2, 1), (1, 0), (0, 0)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
 
     def test_evaluate_dup_with_both_players_moves(self):
@@ -269,14 +274,16 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_evaluate_vertical_with_one_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[1,1,1,0,0,0], 
-                 [2,2,0,0,0,0], 
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(0,0), (0,1), (0,2), (1,0), (1,1)]:
+        board = [
+            [1, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
         self.assertEqual(heuristic.vertical_windows[0][0], 8)
         self.assertEqual(heuristic.vertical_windows[0][1], 4)
@@ -287,14 +294,16 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_evaluate_vertical_with_both_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[1,2,1,2,0,0], 
-                 [1,0,0,0,0,0], 
-                 [2,1,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(0,0), (0,1), (0,2), (0,3), (1,0), (2,0), (2,1)]:
+        board = [
+            [1, 2, 1, 2, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (2, 0), (2, 1)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
         self.assertEqual(heuristic.vertical_windows[0][1], 0)
         self.assertEqual(heuristic.vertical_windows[0][2], 0)
@@ -302,14 +311,16 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_evaluate_dup_with_one_players_moves(self):
         heuristic = ConnectFourHeuristic(True)
-        board = [[2,0,0,0,0,0], 
-                 [1,0,0,0,0,0], 
-                 [2,1,0,0,0,0],
-                 [1,2,1,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0],
-                 [0,0,0,0,0,0]]
-        for i in [(3,0), (3,1), (3,2), (2,0), (2,1), (1,0), (0,0)]:
+        board = [
+            [2, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        for i in [(3, 0), (3, 1), (3, 2), (2, 0), (2, 1), (1, 0), (0, 0)]:
             heuristic.evaluate_relevant_windows(i[0], i[1], board)
 
         self.assertEqual(heuristic.dup_windows[0][0], -2)
