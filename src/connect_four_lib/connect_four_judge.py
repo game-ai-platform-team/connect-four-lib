@@ -1,3 +1,4 @@
+from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.judge import Judge
 from game_state import GameState
 
@@ -6,12 +7,13 @@ class ConnectFourJudge(Judge):
     def __init__(
         self,
         moves: list[int] | None = None,
-        board: list[list[int]] | None = None,
+        board: list[list[int]] | None = None,heuristic: ConnectFourHeuristic | None = None,
     ) -> None:
         rows = 6
         columns = 7
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
+        self.__heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
     @property
     def board(self) -> list[list[int]]:
@@ -81,7 +83,9 @@ class ConnectFourJudge(Judge):
         pass
 
     def analyze(self) -> float:
-        pass
+        if self.__is_draw():
+            return 0
+        return self.__heuristic.evaluate_entire_board()
 
     def get_all_moves(self) -> list[str]:
         return [str(move) for move in self.__moves]
