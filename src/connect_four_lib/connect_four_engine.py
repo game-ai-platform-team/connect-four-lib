@@ -6,7 +6,6 @@ from connect_four_lib.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 INFINITY = 1000000
-COLUMNS = 7
 
 
 class ConnectFourEngine:
@@ -43,7 +42,7 @@ class ConnectFourEngine:
 
     def get_best_move(self) -> str | None:
         if len(self.__judge.get_all_moves()) <= 2:
-            return str(COLUMNS // 2)
+            return str(3)
 
         best_move = self.iterative_deepening()
 
