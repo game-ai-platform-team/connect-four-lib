@@ -44,7 +44,7 @@ class ConnectFourEngine:
 
         while not self.__is_timeout():
             for move in self.__choices:
-                evaluation = self.min_max(move, depth)
+                evaluation = self.min_max(move, depth, False)
 
                 if evaluation > best_evaluation:
                     best_move = move
