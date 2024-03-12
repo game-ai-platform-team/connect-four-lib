@@ -47,7 +47,7 @@ class ConnectFourEngine:
 
         while not self.__is_timeout():
             for move in self.__choices:
-                evaluation = self.min_max(move, depth, -INFINITY, INFINITY, True)
+                evaluation = self.min_max(move, depth)
 
                 if evaluation > best_evaluation:
                     best_move = move
@@ -58,7 +58,12 @@ class ConnectFourEngine:
         return best_move
 
     def min_max(
-        self, move: int, depth: int, alpha: int, beta: int, maximizing: bool
+        self,
+        move: int,
+        depth: int,
+        alpha: int = -INFINITY,
+        beta: int = INFINITY,
+        maximizing: bool = True,
     ) -> int:
         """
         Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
@@ -66,9 +71,9 @@ class ConnectFourEngine:
         Args:
             move (int): Move to evaluate.
             depth (int): Maximum depth of DFS.
-            alpha (int): Lower bound of the evaluation.
-            beta (int): Upper bound of the evaluation.
-            mode (bool): Determines whether to maximize evaluation.
+            alpha (int, optional): Lower bound of the evaluation. Defaults to -INFINITY.
+            beta (int, optional): Upper bound of the evaluation. Defaults to INFINITY.
+            maximizing (bool): Determines whether to maximize evaluation. Defaults to True.
 
         Returns:
             int: Evaluation of last move.
