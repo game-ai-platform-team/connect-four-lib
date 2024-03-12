@@ -42,18 +42,20 @@ class TestConnectFourEngine(TestCase):
         self.judge_mock.get_all_moves.return_value = [2, 3]
         self.assertEqual(self.engine.get_best_move(), str(3))
 
+    @patch.object(ConnectFourEngine, "_ConnectFourEngine__is_timeout", lambda x: False)
     @patch.object(ConnectFourJudge, "analyze", single_depth_analyze_mock)
     def test_min_max_with_depth_one_returns_evaluation_of_move(self):
         judge_mock = Mock(wraps=ConnectFourJudge())
-        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
+        engine = ConnectFourEngine(judge=judge_mock, color=1, choices=[1, 2])
 
         self.assertEqual(engine.min_max(1, 1), 2)
         self.assertEqual(engine.min_max(2, 1), 3)
 
+    @patch.object(ConnectFourEngine, "_ConnectFourEngine__is_timeout", lambda x: False)
     @patch.object(ConnectFourJudge, "analyze", two_depth_analyze_mock)
     def test_min_max_with_depth_two_and_minimizing_returns_minimum_of_next_moves(self):
         judge_mock = Mock(wraps=ConnectFourJudge())
-        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
+        engine = ConnectFourEngine(judge=judge_mock, color=1, choices=[1, 2])
 
         self.assertEqual(engine.min_max(1, 2, False), 1)
         self.assertEqual(engine.min_max(2, 2, False), 3)
