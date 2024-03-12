@@ -1,4 +1,5 @@
 from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
+from connect_four_lib.heuristic import Heuristic
 from connect_four_lib.judge import Judge
 from connect_four_lib.win_checker import WinChecker
 from game_state import GameState
@@ -84,10 +85,11 @@ class ConnectFourJudge(Judge):
     def get_debug_info(self):
         pass
 
-    def analyze(self) -> float:
+    def analyze(self, color: int) -> float:
         if self.__is_draw():
             return 0
-        return self.__heuristic.evaluate_entire_board()
+
+        return Heuristic.evaluate(self.__board, color)
 
     def get_all_moves(self) -> list[str]:
         return [str(move) for move in self.__moves]
