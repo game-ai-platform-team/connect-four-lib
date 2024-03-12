@@ -13,16 +13,16 @@ class Heuristic:
     def __get_windows(column: int, row: int, board: list[list[int]]) -> list[int]:
         windows = []
 
-        windows.extend(
+        windows.append(
             [Heuristic.__get_point(column, row + i, board) for i in range(4)]
         )
-        windows.extend(
+        windows.append(
             [Heuristic.__get_point(column + i, row, board) for i in range(4)]
         )
-        windows.extend(
+        windows.append(
             [Heuristic.__get_point(column + i, row + i, board) for i in range(4)]
         )
-        windows.extend(
+        windows.append(
             [Heuristic.__get_point(column + i, row - i, board) for i in range(4)]
         )
 
