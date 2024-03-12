@@ -51,6 +51,7 @@ class ConnectFourEngine:
 
                 if evaluation > best_evaluation:
                     best_move = move
+                    best_evaluation = evaluation
 
             depth += 1
 
