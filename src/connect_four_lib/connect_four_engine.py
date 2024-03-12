@@ -12,11 +12,13 @@ class ConnectFourEngine:
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
         choices: list[int] | None = None,
+        color: int = -1,
     ) -> None:
         self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
+        self.__color: int = color
 
     def __is_timeout(self) -> bool:
         time_used = int((time.perf_counter() - self.__start_time) * 1000)
@@ -37,6 +39,7 @@ class ConnectFourEngine:
         return str(best_move)
 
     def iterative_deepening(self) -> int | None:
+        self.__color = len(self.__judge.get_all_moves()) % 2 + 1
         depth = 1
         best_move = self.__choices[0]
         best_evaluation = -INFINITY
@@ -82,7 +85,7 @@ class ConnectFourEngine:
             not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
             or self.__is_timeout()
         ):
-            return self.__judge.analyze()
+            return self.__judge.analyze(self.__color)
 
         if maximizing:
             best_value = -INFINITY

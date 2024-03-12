@@ -5,14 +5,14 @@ from connect_four_lib.connect_four_engine import ConnectFourEngine
 from connect_four_lib.connect_four_judge import ConnectFourJudge
 
 
-def single_depth_analyze_mock(self):
+def single_depth_analyze_mock(self, color):
     evaluations = {1: 2, 2: 3}
     move = self._ConnectFourJudge__moves[-1]
 
     return evaluations[move]
 
 
-def two_depth_analyze_mock(self):
+def two_depth_analyze_mock(self, color):
     evaluations = {(1, 1): 2, (1, 2): 1, (2, 1): 3, (2, 2): 4}
     moves = tuple(self._ConnectFourJudge__moves)
 
