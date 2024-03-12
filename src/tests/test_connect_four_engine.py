@@ -12,6 +12,13 @@ def single_depth_analyze_mock(self):
     return evaluations[move]
 
 
+def two_depth_analyze_mock(self):
+    evaluations = {(1, 1): 2, (1, 2): 1, (2, 1): 3, (2, 2): 4}
+    moves = tuple(self._ConnectFourJudge__moves)
+
+    return evaluations[moves]
+
+
 class TestConnectFourEngine(TestCase):
     def setUp(self) -> None:
         self.judge_mock = Mock()
@@ -42,6 +49,14 @@ class TestConnectFourEngine(TestCase):
 
         self.assertEqual(engine.min_max(1, 1), 2)
         self.assertEqual(engine.min_max(2, 1), 3)
+
+    @patch.object(ConnectFourJudge, "analyze", two_depth_analyze_mock)
+    def test_min_max_with_depth_two_and_minimizing_returns_minimum_of_next_moves(self):
+        judge_mock = Mock(wraps=ConnectFourJudge())
+        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
+
+        self.assertEqual(engine.min_max(1, 2, False), 1)
+        self.assertEqual(engine.min_max(2, 2, False), 3)
 
     def test_get_best_move_blocks_opponents_win_column(self):
         for i in ["1", "2", "1", "2", "1"]:
