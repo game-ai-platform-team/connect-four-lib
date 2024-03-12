@@ -1,7 +1,15 @@
 from unittest import TestCase
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 
 from connect_four_lib.connect_four_engine import ConnectFourEngine
+from connect_four_lib.connect_four_judge import ConnectFourJudge
+
+
+def single_depth_analyze_mock(self):
+    evaluations = {1: 2, 2: 3}
+    move = self._ConnectFourJudge__moves[-1]
+
+    return evaluations[move]
 
 
 class TestConnectFourEngine(TestCase):
@@ -26,6 +34,14 @@ class TestConnectFourEngine(TestCase):
 
         self.judge_mock.get_all_moves.return_value = [2, 3]
         self.assertEqual(self.engine.get_best_move(), str(3))
+
+    @patch.object(ConnectFourJudge, "analyze", single_depth_analyze_mock)
+    def test_min_max_with_depth_one_returns_evaluation_of_move(self):
+        judge_mock = Mock(wraps=ConnectFourJudge())
+        engine = ConnectFourEngine(judge=judge_mock)
+
+        self.assertEqual(engine.min_max(1, 1), 2)
+        self.assertEqual(engine.min_max(2, 1), 3)
 
     def test_get_best_move_blocks_opponents_win_column(self):
         for i in ["1", "2", "1", "2", "1"]:
