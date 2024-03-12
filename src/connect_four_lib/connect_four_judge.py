@@ -63,6 +63,7 @@ class ConnectFourJudge(Judge):
 
                 self.__board[column][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(column)
+                self.__heuristic.evaluate_relevant_windows(column, row, self.board)
 
                 break
 
