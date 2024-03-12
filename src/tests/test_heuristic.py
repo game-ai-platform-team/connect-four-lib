@@ -1,6 +1,6 @@
 from unittest import TestCase
-from config import INFINITY
 
+from config import INFINITY
 from connect_four_lib.heuristic import Heuristic
 
 
@@ -72,9 +72,7 @@ class TestHeuristic(TestCase):
             [0, 0, 0, 0, 0, 0],
         ]
         self.assertGreater(Heuristic.evaluate(board, 2), INFINITY - self.max_evaluation)
-        self.assertLess(
-            Heuristic.evaluate(board, 1), -INFINITY + self.max_evaluation
-        )
+        self.assertLess(Heuristic.evaluate(board, 1), -INFINITY + self.max_evaluation)
 
     def test_evaluate_board_detects_upwards_vertical_win(self):
         board = [
