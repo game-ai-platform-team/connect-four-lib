@@ -85,7 +85,7 @@ class ConnectFourJudge(Judge):
     def get_debug_info(self):
         pass
 
-    def analyze(self, color: int) -> float:
+    def analyze(self, color: int = 1) -> float:
         if self.__is_draw():
             return 0
 
