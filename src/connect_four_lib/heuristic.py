@@ -10,6 +10,25 @@ class Heuristic:
         return board[column][row]
 
     @staticmethod
+    def __get_windows(column: int, row: int, board: list[list[int]]) -> list[int]:
+        windows = []
+
+        windows.extend(
+            [Heuristic.__get_point(column, row + i, board) for i in range(4)]
+        )
+        windows.extend(
+            [Heuristic.__get_point(column + i, row, board) for i in range(4)]
+        )
+        windows.extend(
+            [Heuristic.__get_point(column + i, row + i, board) for i in range(4)]
+        )
+        windows.extend(
+            [Heuristic.__get_point(column + i, row - i, board) for i in range(4)]
+        )
+
+        return windows
+
+    @staticmethod
     def _evaluate_window(window: list[int], color: int) -> int:
         points = window.count(color)
         empty_points = window.count(0)
@@ -30,24 +49,7 @@ class Heuristic:
 
         for column in range(len(board)):
             for row in range(len(board[0])):
-                windows.extend(
-                    [Heuristic.__get_point(column, row + i, board) for i in range(4)]
-                )
-                windows.extend(
-                    [Heuristic.__get_point(column + i, row, board) for i in range(4)]
-                )
-                windows.extend(
-                    [
-                        Heuristic.__get_point(column + i, row + i, board)
-                        for i in range(4)
-                    ]
-                )
-                windows.extend(
-                    [
-                        Heuristic.__get_point(column + i, row - i, board)
-                        for i in range(4)
-                    ]
-                )
+                windows.extend(Heuristic.__get_windows(column, row, board))
 
         evaluation = sum(
             Heuristic._evaluate_window(window, color)
