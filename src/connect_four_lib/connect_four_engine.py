@@ -1,7 +1,6 @@
 import random
 import time
 
-from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
@@ -13,12 +12,10 @@ class ConnectFourEngine:
         self,
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
-        heuristic: ConnectFourHeuristic | None = None,
         choices: list[int] | None = None,
     ) -> None:
         self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
-        self.__heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
 
@@ -27,18 +24,10 @@ class ConnectFourEngine:
         return time_used >= self.__difficulty
 
     def add_move(self, move: str) -> None:
-        move_position = self.__judge.add_move(move)
-
-        self.__heuristic.evaluate_relevant_windows(
-            move_position[0], move_position[1], self.__judge.board
-        )
+        self.__judge.add_move(move)
 
     def __remove_last_move(self) -> None:
-        move_position = self.__judge.remove_last_move()
-
-        self.__heuristic.evaluate_relevant_windows(
-            move_position[0], move_position[1], self.__judge.board
-        )
+        self.__judge.remove_last_move()
 
     def get_best_move(self) -> str | None:
         if len(self.__judge.get_all_moves()) <= 2:
@@ -91,7 +80,7 @@ class ConnectFourEngine:
             not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
             or self.__is_timeout()
         ):
-            evaluation = self.__heuristic.evaluate_entire_board()
+            evaluation = 0
 
             if maximizing:
                 evaluation *= -1
