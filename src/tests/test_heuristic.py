@@ -72,7 +72,7 @@ class TestHeuristic(TestCase):
             [0, 0, 0, 0, 0, 0],
         ]
         self.assertGreater(Heuristic.evaluate(board, 2), INFINITY - self.max_evaluation)
-        self.assertGreater(
+        self.assertLess(
             Heuristic.evaluate(board, 1), -INFINITY + self.max_evaluation
         )
 
