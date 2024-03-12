@@ -88,3 +88,34 @@ class TestHeuristic(TestCase):
         ]
         self.assertGreater(Heuristic.evaluate(board, 1), INFINITY - self.max_evaluation)
         self.assertLess(Heuristic.evaluate(board, 2), -INFINITY + self.max_evaluation)
+
+    def test_evaluate_returns_zero_when_board_is_empty(self):
+        board = [[0] * 6 * 7]
+        self.assertEqual(Heuristic.evaluate(board, 1), 0)
+        self.assertEqual(Heuristic.evaluate(board, 2), 0)
+
+    def test_evaluate(self):
+        board1 = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [2, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        board2 = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [2, 2, 1, 2, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 1, 1, 2, 1, 2],
+            [1, 2, 0, 0, 0, 0],
+        ]
+
+        self.assertEqual(Heuristic.evaluate(board1, 1), -2)
+        self.assertEqual(Heuristic.evaluate(board1, 2), 2)
+
+        self.assertEqual(Heuristic.evaluate(board2, 2), -4)
+        self.assertEqual(Heuristic.evaluate(board2, 1), 4)
