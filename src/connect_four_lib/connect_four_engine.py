@@ -80,12 +80,7 @@ class ConnectFourEngine:
             not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
             or self.__is_timeout()
         ):
-            evaluation = 0
-
-            if maximizing:
-                evaluation *= -1
-
-            return evaluation
+            return self.__judge.analyze()
 
         if maximizing:
             best_value = -INFINITY
