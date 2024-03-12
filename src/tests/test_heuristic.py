@@ -5,6 +5,9 @@ from connect_four_lib.heuristic import Heuristic
 
 
 class TestHeuristic(TestCase):
+    def setUp(self) -> None:
+        self.max_evaluation = 400
+
     def test_evaluate_window_returns_infinity_if_win(self):
         window1 = [1] * 4
         window2 = [2] * 4
@@ -29,3 +32,59 @@ class TestHeuristic(TestCase):
 
         for window in windows:
             self.assertEqual(window.count(1), Heuristic._evaluate_window(window, 1))
+
+    def test_evaluate_board_detects_horizontal_win(self):
+        board = [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+        ]
+
+        self.assertGreater(Heuristic.evaluate(board, 1), self.max_evaluation)
+        self.assertLess(Heuristic.evaluate(board, 2), -self.max_evaluation)
+
+    def test_evaluate_board_detects_vertical_win(self):
+        board = [
+            [2, 2, 2, 2, 0, 0],
+            [1, 1, 1, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+
+        self.assertGreater(Heuristic.evaluate(board, 2), INFINITY - self.max_evaluation)
+        self.assertLess(Heuristic.evaluate(board, 1), -INFINITY + self.max_evaluation)
+
+    def test_evaluate_board_detects_downwards_vertical_win(self):
+        board = [
+            [1, 2, 1, 2, 0, 0],
+            [1, 1, 2, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        self.assertGreater(Heuristic.evaluate(board, 2), INFINITY - self.max_evaluation)
+        self.assertGreater(
+            Heuristic.evaluate(board, 1), -INFINITY + self.max_evaluation
+        )
+
+    def test_evaluate_board_detects_upwards_vertical_win(self):
+        board = [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [2, 2, 2, 1, 0, 0],
+            [2, 2, 2, 1, 1, 0],
+            [1, 1, 1, 2, 2, 1],
+        ]
+        self.assertGreater(Heuristic.evaluate(board, 1), INFINITY - self.max_evaluation)
+        self.assertLess(Heuristic.evaluate(board, 2), -INFINITY + self.max_evaluation)
