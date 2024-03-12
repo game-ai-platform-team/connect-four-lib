@@ -25,9 +25,6 @@ class ConnectFourEngine:
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
 
-    def __remove_last_move(self) -> None:
-        self.__judge.remove_last_move()
-
     def get_best_move(self) -> str | None:
         if len(self.__judge.get_all_moves()) <= 2:
             return str(3)
@@ -91,9 +88,9 @@ class ConnectFourEngine:
             best_value = -INFINITY
 
             for next_move in self.__choices:
-                self.add_move(str(move))
+                self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, False)
-                self.__remove_last_move()
+                self.__judge.remove_last_move()
 
                 best_value = max(best_value, new_value)
                 alpha = max(alpha, best_value)
@@ -104,9 +101,9 @@ class ConnectFourEngine:
             best_value = INFINITY
 
             for next_move in self.__choices:
-                self.add_move(str(move))
+                self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, True)
-                self.__remove_last_move()
+                self.__judge.remove_last_move()
 
                 best_value = min(best_value, new_value)
                 beta = min(beta, best_value)
