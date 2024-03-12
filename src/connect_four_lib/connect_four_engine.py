@@ -58,9 +58,9 @@ class ConnectFourEngine:
         self,
         move: int,
         depth: int,
+        maximizing: bool = True,
         alpha: int = -INFINITY,
         beta: int = INFINITY,
-        maximizing: bool = True,
     ) -> int:
         """
         Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
@@ -68,9 +68,9 @@ class ConnectFourEngine:
         Args:
             move (int): Move to evaluate.
             depth (int): Maximum depth of DFS.
+            maximizing (bool): Determines whether to maximize evaluation. Defaults to True.
             alpha (int, optional): Lower bound of the evaluation. Defaults to -INFINITY.
             beta (int, optional): Upper bound of the evaluation. Defaults to INFINITY.
-            maximizing (bool): Determines whether to maximize evaluation. Defaults to True.
 
         Returns:
             int: Evaluation of last move.
@@ -89,7 +89,7 @@ class ConnectFourEngine:
 
             for next_move in self.__choices:
                 self.__judge.add_move(str(move))
-                new_value = self.min_max(next_move, depth - 1, alpha, beta, False)
+                new_value = self.min_max(next_move, depth - 1, False, alpha, beta)
                 self.__judge.remove_last_move()
 
                 best_value = max(best_value, new_value)
@@ -102,7 +102,7 @@ class ConnectFourEngine:
 
             for next_move in self.__choices:
                 self.__judge.add_move(str(move))
-                new_value = self.min_max(next_move, depth - 1, alpha, beta, True)
+                new_value = self.min_max(next_move, depth - 1, True, alpha, beta)
                 self.__judge.remove_last_move()
 
                 best_value = min(best_value, new_value)
