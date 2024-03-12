@@ -38,7 +38,7 @@ class TestConnectFourEngine(TestCase):
     @patch.object(ConnectFourJudge, "analyze", single_depth_analyze_mock)
     def test_min_max_with_depth_one_returns_evaluation_of_move(self):
         judge_mock = Mock(wraps=ConnectFourJudge())
-        engine = ConnectFourEngine(judge=judge_mock)
+        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
 
         self.assertEqual(engine.min_max(1, 1), 2)
         self.assertEqual(engine.min_max(2, 1), 3)
