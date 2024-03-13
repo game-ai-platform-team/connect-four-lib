@@ -1,4 +1,4 @@
-from config import INFINITY
+from .config import INFINITY
 
 
 class Heuristic:
