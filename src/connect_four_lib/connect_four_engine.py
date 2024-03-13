@@ -42,17 +42,12 @@ class ConnectFourEngine:
         self.__color = len(self.__judge.get_all_moves()) % 2 + 1
         depth = 1
         best_move = self.__choices[0]
-        best_evaluation = -INFINITY
         self.__start_time = time.perf_counter()
 
         while not self.__is_timeout():
-            for move in self.__choices:
-                evaluation = self.min_max(move, depth, False)
-
-                if evaluation > best_evaluation:
-                    best_move = move
-                    best_evaluation = evaluation
-
+            best_move = max(
+                self.__choices, key=lambda move: self.min_max(move, depth, False)
+            )
             depth += 1
 
         return best_move
@@ -79,12 +74,11 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if (
-            depth == 0
-            or self.__judge.validate(str(move))
-            not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
-            or self.__is_timeout()
-        ):
+        if depth == 0 or self.__judge.validate(str(move)) not in [
+            GameState.CONTINUE,
+            GameState.DRAW,
+            GameState.WIN,
+        ]:
             return self.__judge.analyze(self.__color)
 
         if maximizing:
