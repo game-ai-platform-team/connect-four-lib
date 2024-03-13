@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from game_state import GameState
+from connect_four_lib.game_state import GameState
 
 
 class Judge(ABC):

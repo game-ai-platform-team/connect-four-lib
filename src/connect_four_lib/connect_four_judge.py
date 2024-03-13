@@ -2,7 +2,7 @@ from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.heuristic import Heuristic
 from connect_four_lib.judge import Judge
 from connect_four_lib.win_checker import WinChecker
-from game_state import GameState
+from connect_four_lib.game_state import GameState
 
 
 class ConnectFourJudge(Judge):

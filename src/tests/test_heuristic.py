@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from config import INFINITY
+from connect_four_lib.config import INFINITY
 from connect_four_lib.heuristic import Heuristic
 
 

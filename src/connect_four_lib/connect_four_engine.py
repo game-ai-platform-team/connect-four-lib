@@ -1,9 +1,9 @@
 import random
 import time
 
-from config import INFINITY
+from connect_four_lib.config import INFINITY
 from connect_four_lib.connect_four_judge import ConnectFourJudge
-from game_state import GameState
+from connect_four_lib.game_state import GameState
 
 
 class ConnectFourEngine:

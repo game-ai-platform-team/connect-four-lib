@@ -1,7 +1,7 @@
 import unittest
 
 from connect_four_lib.win_checker import WinChecker
-from game_state import GameState
+from connect_four_lib.game_state import GameState
 
 
 class TestConnectFourJudge(unittest.TestCase):
