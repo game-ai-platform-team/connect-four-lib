@@ -80,12 +80,12 @@ class TestConnectFourEngine(TestCase):
         for i in ["0", "1", "2", "3", "1", "2", "3", "3", "2", "4"]:
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "3")
-            
+
     def test_get_best_move_makes_winning_move_in_upwards_diagonal(self):
         for i in ["0", "1", "2", "3", "1", "2", "0", "1", "0"]:
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "0")
-    
+
     def test_get_best_move_blocks_opponents_win_column(self):
         for i in ["1", "2", "1", "2", "1"]:
             self.engine_with_judge.add_move(i)

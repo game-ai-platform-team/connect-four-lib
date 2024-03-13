@@ -118,6 +118,7 @@ class ConnectFourEngine:
         move = str(random.choice(self.judge.get_valid_locations()))
         return move
 
+
 if __name__ == "__main__":
     engine1 = ConnectFourEngine()
 
