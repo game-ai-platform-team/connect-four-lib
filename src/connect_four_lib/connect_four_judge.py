@@ -120,7 +120,7 @@ class ConnectFourJudge(Judge):
         return GameState.CONTINUE
 
     def __is_draw(self) -> bool:
-        return len(self.__moves) == 42
+        return len(self.__moves) >= 42
 
     def __is_win(self) -> bool:
         return self.win_checker.check_win(self.__board)

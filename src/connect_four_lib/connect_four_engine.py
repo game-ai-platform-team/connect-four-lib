@@ -14,7 +14,7 @@ class ConnectFourEngine:
         choices: list[int] | None = None,
         color: int = -1,
     ) -> None:
-        self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
+        self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
@@ -25,10 +25,10 @@ class ConnectFourEngine:
         return time_used >= self.__difficulty
 
     def add_move(self, move: str) -> None:
-        self.__judge.add_move(move)
+        self.judge.add_move(move)
 
     def get_best_move(self) -> str | None:
-        if len(self.__judge.get_all_moves()) <= 2:
+        if len(self.judge.get_all_moves()) <= 2:
             return str(3)
 
         best_move = self.iterative_deepening()
@@ -39,7 +39,7 @@ class ConnectFourEngine:
         return str(best_move)
 
     def iterative_deepening(self) -> int | None:
-        self.__color = len(self.__judge.get_all_moves()) % 2 + 1
+        self.__color = len(self.judge.get_all_moves()) % 2 + 1
         depth = 1
         best_move = self.__choices[0]
         self.__start_time = time.perf_counter()
@@ -74,22 +74,22 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if depth == 0 or self.__judge.validate(str(move)) not in [
+        if depth == 0 or self.judge.validate(str(move)) not in [
             GameState.CONTINUE,
             GameState.DRAW,
             GameState.WIN,
         ]:
-            return self.__judge.analyze(self.__color)
+            return self.judge.analyze(self.__color)
 
         if maximizing:
             best_value = -INFINITY
 
             for next_move in self.__choices:
-                self.__judge.add_move(str(move))
+                self.judge.add_move(str(move))
                 new_value = 10**depth * self.min_max(
                     next_move, depth - 1, False, alpha, beta
                 )
-                self.__judge.remove_last_move()
+                self.judge.remove_last_move()
 
                 best_value = max(best_value, new_value)
                 alpha = max(alpha, best_value)
@@ -100,11 +100,11 @@ class ConnectFourEngine:
             best_value = INFINITY
 
             for next_move in self.__choices:
-                self.__judge.add_move(str(move))
+                self.judge.add_move(str(move))
                 new_value = 10**depth * self.min_max(
                     next_move, depth - 1, True, alpha, beta
                 )
-                self.__judge.remove_last_move()
+                self.judge.remove_last_move()
 
                 best_value = min(best_value, new_value)
                 beta = min(beta, best_value)
@@ -115,5 +115,21 @@ class ConnectFourEngine:
         return best_value
 
     def random_valid_move(self) -> str:
-        move = str(random.choice(self.__judge.get_valid_locations()))
+        move = str(random.choice(self.judge.get_valid_locations()))
         return move
+
+if __name__ == "__main__":
+    engine1 = ConnectFourEngine()
+
+    while True:
+        while True:
+            test_move = input("move: ")
+            if engine1.judge.validate(test_move):
+                break
+        engine1.make_move(test_move)
+        test_move = engine1.get_best_move()
+        if test_move:
+            engine1.make_move(test_move)
+        board = engine1.judge.get_board()
+        for i in board:
+            print(i)

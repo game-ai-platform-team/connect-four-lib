@@ -111,9 +111,40 @@ class TestHeuristic(TestCase):
             [1, 1, 1, 2, 1, 2],
             [1, 2, 0, 0, 0, 0],
         ]
+        board3 = [
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        board4 = [
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 2, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        board5 = [
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
 
         self.assertEqual(Heuristic.evaluate(board1, 1), -2)
         self.assertEqual(Heuristic.evaluate(board1, 2), 2)
 
         self.assertEqual(Heuristic.evaluate(board2, 2), -4)
         self.assertEqual(Heuristic.evaluate(board2, 1), 4)
+
+        self.assertEqual(Heuristic.evaluate(board3, 2), -5)
+        self.assertTrue(Heuristic.evaluate(board3, 2) < Heuristic.evaluate(board4, 2))
+        self.assertTrue(Heuristic.evaluate(board5, 2) < Heuristic.evaluate(board4, 2))

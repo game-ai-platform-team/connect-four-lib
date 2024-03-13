@@ -16,12 +16,6 @@ class TestConnectFourJudge(unittest.TestCase):
 
         self.board_one_column_one_move = [[1, 0, 0, 0, 0, 0]]
         self.board_one_column_one_move.extend([[0] * 6 for i in range(6)])
-        self.board_full = [
-            [1, 1, 2, 2, 1, 1],
-            [2, 2, 1, 1, 2, 2],
-            [1, 1, 2, 1, 2, 1],
-            [2, 2, 1, 1, 2, 2],
-        ]
 
     def test_move_not_convertable_to_int_is_invalid(self):
         self.assertEqual(self.judge.validate("aaa"), GameState.INVALID)

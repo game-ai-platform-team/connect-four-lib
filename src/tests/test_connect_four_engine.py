@@ -58,6 +58,34 @@ class TestConnectFourEngine(TestCase):
 
         self.assertLess(engine.min_max(1, 2, False), engine.min_max(2, 2, False))
 
+    def test_get_best_move_starts_in_the_middle(self):
+        move = self.engine_with_judge.get_best_move()
+        self.assertEqual(move, "3")
+        self.engine_with_judge.add_move(move)
+        move = self.engine_with_judge.get_best_move()
+        self.assertEqual(move, "3")
+        self.engine_with_judge.add_move(move)
+
+    def test_get_best_move_makes_winning_move_in_column(self):
+        for i in ["0", "6", "1", "6", "0", "6", "1"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "6")
+
+    def test_get_best_move_makes_winning_move_in_row(self):
+        for i in ["0", "0", "1", "1", "2", "2"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "3")
+
+    def test_get_best_move_makes_winning_move_in_upwards_diagonal(self):
+        for i in ["0", "1", "2", "3", "1", "2", "3", "3", "2", "4"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "3")
+            
+    def test_get_best_move_makes_winning_move_in_upwards_diagonal(self):
+        for i in ["0", "1", "2", "3", "1", "2", "0", "1", "0"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "0")
+    
     def test_get_best_move_blocks_opponents_win_column(self):
         for i in ["1", "2", "1", "2", "1"]:
             self.engine_with_judge.add_move(i)
