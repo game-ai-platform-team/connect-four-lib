@@ -4,7 +4,7 @@ version = "0.1.2"
 description = "A library for connect 4 game"
 authors = ["game-ai-platform-team"]
 readme = "README.md"
-packages = { include = "src/config.py" }
+packages = [{ include = "src/config.py" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
