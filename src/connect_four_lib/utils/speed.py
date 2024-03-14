@@ -17,4 +17,4 @@ def main():
         Heuristic.evaluate(board, 1)
 
 
-cProfile.run("main()")
+cProfile.run("main()",sort="tottime")
