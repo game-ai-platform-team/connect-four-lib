@@ -71,13 +71,13 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.board, self.board_empty_six_by_seven_board)
 
     def test_add_move_adds_move(self):
-        self.judge.add_move(0)
+        self.judge.add_move("0")
         self.assertNotEqual(self.judge.board[0][0], 0)
 
     def test_add_move_adds_correct_move(self):
-        self.judge.add_move(0)
+        self.judge.add_move("0")
         self.assertEqual(self.judge.board[0][0], 1)
-        self.judge.add_move(3)
+        self.judge.add_move("3")
         self.assertEqual(self.judge.board[3][0], 2)
 
     def test_get_board_returns_correct_board_after_five_moves(self):
@@ -142,7 +142,7 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.get_all_moves(), [])
 
     def test_add_move_updates_moves(self):
-        self.judge.add_move(0)
+        self.judge.add_move("0")
 
         self.assertEqual(self.judge.get_all_moves(), ["0"])
 
