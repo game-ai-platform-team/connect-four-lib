@@ -135,13 +135,6 @@ class ConnectFourJudge(Judge):
 
         return 4 in consecutive_points
 
-    def is_game_over(self) -> GameState:
-        if self.win_checker.check_win(self.__board):
-            return GameState.WIN
-        if self.__is_draw():
-            return GameState.DRAW
-        return GameState.CONTINUE
-
     def __count_points_in_line(self, point: Point, offset: Point, color: int) -> int:
         if (
             not 0 <= point.x < len(self.__board[0])
