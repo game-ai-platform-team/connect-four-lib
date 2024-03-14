@@ -136,8 +136,8 @@ class ConnectFourJudge(Judge):
 
     def __count_points_in_line(self, point: Point, offset: Point, color: int) -> int:
         if (
-            not 0 <= point.x < len(self.__board)
-            or not 0 <= point.y < len(self.__board[0])
+            not 0 <= point.x < len(self.__board[0])
+            or not 0 <= point.y < len(self.__board)
             or self.__board[point.y][point.x] != color
         ):
             return 0
