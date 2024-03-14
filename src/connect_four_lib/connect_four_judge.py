@@ -121,7 +121,7 @@ class ConnectFourJudge(Judge):
 
     def __is_win(self, point: Point) -> bool:
         offsets = {Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)}
-        color = len(self.get_all_moves()) % 2
+        color = len(self.get_all_moves()) % 2 + 1
 
         return 4 in [
             self.__count_points_in_line(point, offset, color) for offset in offsets
