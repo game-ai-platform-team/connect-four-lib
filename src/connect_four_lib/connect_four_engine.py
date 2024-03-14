@@ -12,14 +12,13 @@ class ConnectFourEngine:
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
         choices: list[int] | None = None,
-        color: int = -1,
         weight: int = 2,
     ) -> None:
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
-        self.__color: int = color
+        self.__color: int = -1
         self.__weight: int = weight
 
     def __is_timeout(self) -> bool:
