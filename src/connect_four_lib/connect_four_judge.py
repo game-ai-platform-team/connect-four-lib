@@ -70,7 +70,6 @@ class ConnectFourJudge(Judge):
 
         return move_position
 
-    ##Removes a move to the judge and re-evaluates relevant windows to it
     def remove_last_move(self) -> tuple[int, int]:
         move = self.get_last_move()
 
@@ -125,7 +124,7 @@ class ConnectFourJudge(Judge):
     def __is_win(self) -> bool:
         return self.win_checker.check_win(self.__board)
 
-    def is_valid_location(self, column):
+    def is_valid_location(self, column) -> bool:
         return self.__board[column][-1] == 0
 
     def get_valid_locations(self) -> list[int]:
