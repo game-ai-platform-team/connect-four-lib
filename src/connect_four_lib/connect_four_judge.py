@@ -56,21 +56,15 @@ class ConnectFourJudge(Judge):
 
         return state
 
-    def add_move(self, move: str) -> tuple[int, int]:
+    def add_move(self, move: str) -> Point:
         column = int(move)
-        move_position = (-1, -1)
+        point = self.__get_point_of_move(move)
 
-        for row in range(len(self.__board[column])):
-            if self.__board[column][row] == 0:
-                move_position = (column, row)
+        self.__board[point.y][point.x] = (len(self.__moves)) % 2 + 1
+        self.__moves.append(column)
+        self.__heuristic.evaluate_relevant_windows(point.y, point.x, self.board)
 
-                self.__board[column][row] = (len(self.__moves)) % 2 + 1
-                self.__moves.append(column)
-                self.__heuristic.evaluate_relevant_windows(column, row, self.board)
-
-                break
-
-        return move_position
+        return point
 
     def remove_last_move(self) -> tuple[int, int]:
         move = self.get_last_move()
@@ -94,6 +88,15 @@ class ConnectFourJudge(Judge):
 
     def get_all_moves(self) -> list[str]:
         return [str(move) for move in self.__moves]
+
+    def __get_point_of_move(self, move: str) -> Point:
+        column = int(move)
+
+        for row, point in enumerate(self.__board[column]):
+            if point == 0:
+                return Point(row, column)
+
+        return Point(-1, -1)
 
     def __check_valid_move(self, move: str) -> bool:
         move_int = -1
