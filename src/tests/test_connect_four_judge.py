@@ -28,8 +28,8 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.validate("1.01"), GameState.INVALID)
         self.assertEqual(self.judge.validate("1.0"), GameState.INVALID)
 
-    def test_upwards_diagonal_win_in_corner_is_recognized(self):
-        board = [
+    def test_upwards_diagonal_win_is_recognized(self):
+        board1 = [
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [2, 0, 0, 0, 0, 0],
@@ -38,10 +38,21 @@ class TestConnectFourJudge(unittest.TestCase):
             [1, 2, 1, 0, 0, 0],
             [2, 1, 2, 1, 0, 0],
         ]
+        board2 = [
+            [0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 1, 2, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
 
-        judge = ConnectFourJudge(board=board)
+        judge1 = ConnectFourJudge(board=board1)
+        judge2 = ConnectFourJudge(board=board2)
 
-        self.assertEqual(judge.validate(str(3)), GameState.WIN)
+        self.assertEqual(judge1.validate(str(3)), GameState.WIN)
+        self.assertEqual(judge2.validate(str(4)), GameState.WIN)
 
     def test_move_outside_board_return_invalid_state(self):
         self.assertEqual(self.judge.validate("-1"), GameState.INVALID)
@@ -125,11 +136,6 @@ class TestConnectFourJudge(unittest.TestCase):
 
         self.assertEqual(judge1.validate("0"), GameState.WIN)
         self.assertEqual(judge2.validate("6"), GameState.WIN)
-
-    def test_upwards_diagonal_win_is_recognized(self):
-        for i in [1, 0, 3, 3, 3, 2, 2, 4, 4, 4, 4]:
-            self.judge.add_move(i)
-        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
 
     def test_downwards_diagonal_win_is_recognized(self):
         for i in [5, 4, 4, 2, 2, 2, 2, 1, 3, 3, 3]:
