@@ -122,20 +122,3 @@ class ConnectFourEngine:
     def random_valid_move(self) -> str:
         move = str(random.choice(self.judge.get_valid_locations()))
         return move
-
-
-if __name__ == "__main__":
-    engine1 = ConnectFourEngine()
-
-    while True:
-        while True:
-            test_move = input("move: ")
-            if engine1.judge.validate(test_move):
-                break
-        engine1.make_move(test_move)
-        test_move = engine1.get_best_move()
-        if test_move:
-            engine1.make_move(test_move)
-        board = engine1.judge.get_board()
-        for i in board:
-            print(i)
