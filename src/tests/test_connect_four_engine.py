@@ -23,7 +23,7 @@ class TestConnectFourEngine(TestCase):
     def setUp(self) -> None:
         self.judge_mock = Mock()
         self.engine = ConnectFourEngine(judge=self.judge_mock)
-        self.engine_with_judge = ConnectFourEngine(False)
+        self.engine_with_judge = ConnectFourEngine()
 
     def test_make_move_adds_move_to_judges(self):
         self.engine.add_move("1")
