@@ -45,14 +45,14 @@ class TestConnectFourEngine(TestCase):
     @patch.object(ConnectFourJudge, "analyze", single_depth_analyze_mock)
     def test_min_max_with_depth_one_keeps_order(self):
         judge_mock = Mock(wraps=ConnectFourJudge())
-        engine = ConnectFourEngine(judge=judge_mock, color=1, choices=[1, 2])
+        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
 
         self.assertLess(engine.min_max(1, 1), engine.min_max(2, 1))
 
     @patch.object(ConnectFourJudge, "analyze", two_depth_analyze_mock)
     def test_min_max_with_depth_two_and_minimizing_selects_worst_move(self):
         judge_mock = Mock(wraps=ConnectFourJudge())
-        engine = ConnectFourEngine(judge=judge_mock, color=1, choices=[1, 2])
+        engine = ConnectFourEngine(judge=judge_mock, choices=[1, 2])
 
         self.assertLess(engine.min_max(1, 2, False), engine.min_max(2, 2, False))
 
