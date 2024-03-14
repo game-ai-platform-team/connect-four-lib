@@ -93,8 +93,8 @@ class TestConnectFourJudge(unittest.TestCase):
 
     def test_get_board_returns_correct_board_after_five_moves(self):
         judge = ConnectFourJudge()
-        for i in [0, 0, 1, 3, 0]:
-            judge.add_move(i)
+
+        self.add_multiple_moves(judge, [0, 0, 1, 3, 0])
 
         self.assertEqual(
             judge.board,
