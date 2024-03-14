@@ -17,6 +17,10 @@ class TestConnectFourJudge(unittest.TestCase):
         self.board_one_column_one_move = [[1, 0, 0, 0, 0, 0]]
         self.board_one_column_one_move.extend([[0] * 6 for i in range(6)])
 
+    def add_multiple_moves(self, judge: ConnectFourJudge, moves: list[int]):
+        for move in moves:
+            judge.add_move(str(move))
+
     def test_move_not_convertable_to_int_is_invalid(self):
         self.assertEqual(self.judge.validate("aaa"), GameState.INVALID)
         self.assertEqual(self.judge.validate("7ä"), GameState.INVALID)
@@ -103,19 +107,14 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(judge.validate("6"), GameState.DRAW)
 
     def test_horizontal_win_is_recognized(self):
-        for i in [0, 0, 1, 1, 2, 2, 3]:
-            self.judge.add_move(i)
-        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+        judge1 = ConnectFourJudge()
+        judge2 = ConnectFourJudge()
 
-    def test_horizontal_win_is_recognized_part_two(self):
-        for i in [1, 2, 3, 4, 1, 1, 2, 2, 3, 3, 4]:
-            self.judge.add_move(i)
-        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+        self.add_multiple_moves(judge1, [0, 0, 1, 1, 2, 2])
+        self.add_multiple_moves(judge2, [1, 2, 3, 4, 1, 5, 2, 6, 3, 6])
 
-    def test_vertical_win_is_recognized(self):
-        for i in [2, 0, 2, 1, 2, 1, 2]:
-            self.judge.add_move(i)
-        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+        self.assertEqual(judge1.validate("3"), GameState.WIN)
+        self.assertEqual(judge2.validate("4"), GameState.WIN)
 
     def test_vertical_win_is_recognized_part_two(self):
         for i in [0, 6, 6, 6, 0, 6, 0, 6, 2, 6]:
