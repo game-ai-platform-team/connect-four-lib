@@ -10,16 +10,12 @@ class ConnectFourJudge(Judge):
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
     ) -> None:
-        self.__board: list[list[int]] = board or self.initialize_board()
+        self.__board: list[list[int]] = board or [([0] * 6) for i in range(7)]
         self.__moves: list[int] = moves or []
 
     @property
     def board(self) -> list[list[int]]:
         return self.__board
-
-    def initialize_board(self, rows: int = 6, columns: int = 7) -> list[list[int]]:
-        board = [([0] * rows) for i in range(columns)]
-        return board
 
     def get_last_move(self) -> tuple[int, int] | None:
         if not self.__moves:
