@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from connect_four_lib.heuristic import Heuristic, BIG_INTEGER
+from connect_four_lib.heuristic import BIG_INTEGER, Heuristic
 
 
 class TestHeuristic(TestCase):

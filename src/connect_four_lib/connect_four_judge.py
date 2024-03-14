@@ -41,6 +41,7 @@ class ConnectFourJudge(Judge):
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
+
         if not self.__check_valid_move(move):
             return GameState.INVALID
 
