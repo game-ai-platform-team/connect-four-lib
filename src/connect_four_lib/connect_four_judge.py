@@ -142,7 +142,7 @@ class ConnectFourJudge(Judge):
         ):
             return 0
 
-        return 1 + self.__count_points_in_line(point - offset, point + offset, color)
+        return 1 + self.__count_points_in_line(point + offset, offset, color)
 
     def get_valid_moves(self) -> list[int]:
         return [move for move in range(7) if self.__check_illegal_move(move)]
