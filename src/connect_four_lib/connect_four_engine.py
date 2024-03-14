@@ -57,9 +57,9 @@ class ConnectFourEngine:
         move: int,
         depth: int,
         maximizing: bool = True,
-        alpha: int = -INFINITY,
-        beta: int = INFINITY,
-    ) -> int:
+        alpha: float = -INFINITY,
+        beta: float = INFINITY,
+    ) -> float:
         """
         Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
 
