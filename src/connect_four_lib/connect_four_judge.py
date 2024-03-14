@@ -124,10 +124,5 @@ class ConnectFourJudge(Judge):
     def __is_win(self) -> bool:
         return self.win_checker.check_win(self.__board)
 
-    def is_valid_location(self, column) -> bool:
-        return self.__board[column][-1] == 0
-
-    def get_valid_locations(self) -> list[int]:
-        valid_locations = [col for col in range(7) if self.is_valid_location(col)]
-
-        return valid_locations
+    def get_valid_moves(self) -> list[int]:
+        return [move for move in range(7) if self.__check_illegal_move(move)]

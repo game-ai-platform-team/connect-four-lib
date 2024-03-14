@@ -119,5 +119,5 @@ class ConnectFourEngine:
         return best_value
 
     def random_valid_move(self) -> str:
-        move = str(random.choice(self.judge.get_valid_locations()))
+        move = str(random.choice(self.judge.get_valid_moves()))
         return move
