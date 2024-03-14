@@ -28,18 +28,10 @@ class ConnectFourEngine:
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
 
-    def get_best_move(self) -> str | None:
+    def get_best_move(self) -> str:
         if len(self.__judge.get_all_moves()) <= 2:
-            return str(3)
+            return "3"
 
-        best_move = self.iterative_deepening()
-
-        if best_move is None:
-            return None
-
-        return str(best_move)
-
-    def iterative_deepening(self) -> int | None:
         self.__color = len(self.__judge.get_all_moves()) % 2 + 1
         depth = 1
         best_move = self.__choices[0]
@@ -51,7 +43,7 @@ class ConnectFourEngine:
             )
             depth += 1
 
-        return best_move
+        return str(best_move)
 
     def min_max(
         self,
