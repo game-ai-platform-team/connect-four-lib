@@ -30,7 +30,9 @@ class TestConnectFourHeuristic(TestCase):
         ]
 
         for window in windows:
-            self.assertEqual(window.count(1), ConnectFourHeuristic._evaluate_window(window, 1))
+            self.assertEqual(
+                window.count(1), ConnectFourHeuristic._evaluate_window(window, 1)
+            )
 
     def test_evaluate_board_detects_horizontal_win(self):
         board = [
@@ -145,5 +147,11 @@ class TestConnectFourHeuristic(TestCase):
         self.assertEqual(ConnectFourHeuristic.evaluate(board2, 1), 4)
 
         self.assertEqual(ConnectFourHeuristic.evaluate(board3, 2), -5)
-        self.assertTrue(ConnectFourHeuristic.evaluate(board3, 2) < ConnectFourHeuristic.evaluate(board4, 2))
-        self.assertTrue(ConnectFourHeuristic.evaluate(board5, 2) < ConnectFourHeuristic.evaluate(board4, 2))
+        self.assertTrue(
+            ConnectFourHeuristic.evaluate(board3, 2)
+            < ConnectFourHeuristic.evaluate(board4, 2)
+        )
+        self.assertTrue(
+            ConnectFourHeuristic.evaluate(board5, 2)
+            < ConnectFourHeuristic.evaluate(board4, 2)
+        )

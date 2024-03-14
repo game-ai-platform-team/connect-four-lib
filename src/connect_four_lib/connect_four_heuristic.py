@@ -19,16 +19,28 @@ class ConnectFourHeuristic:
         windows = []
 
         windows.append(
-            tuple(ConnectFourHeuristic.__get_point(column, row + i, board) for i in range(4))
+            tuple(
+                ConnectFourHeuristic.__get_point(column, row + i, board)
+                for i in range(4)
+            )
         )
         windows.append(
-            tuple(ConnectFourHeuristic.__get_point(column + i, row, board) for i in range(4))
+            tuple(
+                ConnectFourHeuristic.__get_point(column + i, row, board)
+                for i in range(4)
+            )
         )
         windows.append(
-            tuple(ConnectFourHeuristic.__get_point(column + i, row + i, board) for i in range(4))
+            tuple(
+                ConnectFourHeuristic.__get_point(column + i, row + i, board)
+                for i in range(4)
+            )
         )
         windows.append(
-            tuple(ConnectFourHeuristic.__get_point(column + i, row - i, board) for i in range(4))
+            tuple(
+                ConnectFourHeuristic.__get_point(column + i, row - i, board)
+                for i in range(4)
+            )
         )
 
         return windows
@@ -56,7 +68,9 @@ class ConnectFourHeuristic:
 
         for column in range(len(board)):
             for row in range(len(board[0])):
-                windows.extend(ConnectFourHeuristic.__get_windows(column, row, hashable_board))
+                windows.extend(
+                    ConnectFourHeuristic.__get_windows(column, row, hashable_board)
+                )
 
         evaluation = sum(
             ConnectFourHeuristic._evaluate_window(window, color)
