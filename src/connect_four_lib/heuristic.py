@@ -1,5 +1,4 @@
-from .config import INFINITY
-
+BIG_INTEGER = 1000
 
 class Heuristic:
     @staticmethod
@@ -36,7 +35,7 @@ class Heuristic:
         evaluation = 0
 
         if points == 4:
-            return INFINITY
+            return BIG_INTEGER
 
         if points + empty_points == 4:
             evaluation = points
