@@ -3,7 +3,6 @@ from connect_four_lib.game_state import GameState
 from connect_four_lib.heuristic import Heuristic
 from connect_four_lib.judge import Judge
 from connect_four_lib.point import Point
-from connect_four_lib.win_checker import WinChecker
 
 
 class ConnectFourJudge(Judge):
@@ -16,7 +15,6 @@ class ConnectFourJudge(Judge):
         self.__board: list[list[int]] = board or self.initialize_board()
         self.__moves: list[int] = moves or []
         self.__heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
-        self.win_checker = WinChecker()
 
     @property
     def board(self) -> list[list[int]]:
