@@ -8,25 +8,25 @@ class TestHeuristic(TestCase):
         self.max_evaluation = 400
 
     def test_evaluate_window_returns_big_integer_if_win(self):
-        window1 = [1] * 4
-        window2 = [2] * 4
+        window1 = (1,) * 4
+        window2 = (2,) * 4
 
         self.assertEqual(Heuristic._evaluate_window(window1, 1), BIG_INTEGER)
         self.assertEqual(Heuristic._evaluate_window(window2, 2), BIG_INTEGER)
 
     def test_evaluate_window_returns_zero_if_window_contains_another_color(self):
-        windows = [[-1, 0, 1, 3], [1, 0, 1, 2], [2, 2, 2, 1], [1, 2, 0, 0]]
+        windows = [(-1, 0, 1, 3), (1, 0, 1, 2), (2, 2, 2, 1), (1, 2, 0, 0)]
         for window in windows:
             self.assertEqual(Heuristic._evaluate_window(window, 1), 0)
             self.assertEqual(Heuristic._evaluate_window(window, 2), 0)
 
     def test_evaluate_window_returns_amount_of_points_if_only_one_color(self):
         windows = [
-            [1, 0, 0, 0],
-            [0, 0, 1, 0],
-            [1, 0, 1, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 0],
+            (1, 0, 0, 0),
+            (0, 0, 1, 0),
+            (1, 0, 1, 0),
+            (1, 0, 0, 1),
+            (1, 1, 1, 0),
         ]
 
         for window in windows:
