@@ -83,14 +83,8 @@ class ConnectFourJudge(Judge):
     def get_all_moves(self) -> list[str]:
         return [str(move) for move in self.__moves]
 
-    def __get_point_of_move(self, move: str) -> Point:
-        column = int(move)
-
-        for row, point in enumerate(self.__board[column]):
-            if point == 0:
-                return Point(row, column)
-
-        return Point(-1, -1)
+    def get_valid_moves(self) -> list[int]:
+        return [move for move in range(7) if self.__check_illegal_move(move)]
 
     def __check_valid_move(self, move: str) -> bool:
         move_int = -1
@@ -126,7 +120,18 @@ class ConnectFourJudge(Judge):
 
         return 4 in consecutive_points
 
-    def __count_consecutive_points(self, point: Point, direction: Point, color: int) -> int:
+    def __get_point_of_move(self, move: str) -> Point:
+        column = int(move)
+
+        for row, point in enumerate(self.__board[column]):
+            if point == 0:
+                return Point(row, column)
+
+        return Point(-1, -1)
+
+    def __count_consecutive_points(
+        self, point: Point, direction: Point, color: int
+    ) -> int:
         if (
             not 0 <= point.x < len(self.__board[0])
             or not 0 <= point.y < len(self.__board)
@@ -135,6 +140,3 @@ class ConnectFourJudge(Judge):
             return 0
 
         return 1 + self.__count_consecutive_points(point + direction, direction, color)
-
-    def get_valid_moves(self) -> list[int]:
-        return [move for move in range(7) if self.__check_illegal_move(move)]
