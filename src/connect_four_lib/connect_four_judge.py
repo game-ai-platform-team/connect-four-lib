@@ -51,7 +51,8 @@ class ConnectFourJudge(Judge):
 
         if self.__is_draw():
             state = GameState.DRAW
-        elif self.__is_win():
+
+        if self.__is_win(self.__get_point_of_move(move)):
             state = GameState.WIN
 
         return state
@@ -120,12 +121,19 @@ class ConnectFourJudge(Judge):
         return len(self.__moves) >= 42
 
     def __is_win(self, point: Point) -> bool:
-        offsets = {Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)}
+        offsets = [Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)]
         color = len(self.get_all_moves()) % 2 + 1
 
-        return 4 in [
-            self.__count_points_in_line(point, offset, color) for offset in offsets
+        self.__board[point.y][point.x] = color
+        consecutive_points = [
+            self.__count_points_in_line(point, offset, color)
+            + self.__count_points_in_line(point, -offset, color)
+            - 1
+            for offset in offsets
         ]
+        self.__board[point.y][point.x] = 0
+
+        return 4 in consecutive_points
 
     def is_game_over(self) -> GameState:
         if self.win_checker.check_win(self.__board):
