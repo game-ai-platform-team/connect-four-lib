@@ -2,6 +2,7 @@ from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.game_state import GameState
 from connect_four_lib.heuristic import Heuristic
 from connect_four_lib.judge import Judge
+from connect_four_lib.point import Point
 from connect_four_lib.win_checker import WinChecker
 
 
@@ -112,18 +113,33 @@ class ConnectFourJudge(Judge):
 
         return True
 
+    def __is_draw(self) -> bool:
+        return len(self.__moves) >= 42
+
+    def __is_win(self, point: Point) -> bool:
+        offsets = {Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)}
+        color = len(self.get_all_moves()) % 2
+
+        return 4 in [
+            self.__count_points_in_line(point, offset, color) for offset in offsets
+        ]
+
     def is_game_over(self) -> GameState:
-        if self.__is_win():
+        if self.win_checker.check_win(self.__board):
             return GameState.WIN
         if self.__is_draw():
             return GameState.DRAW
         return GameState.CONTINUE
 
-    def __is_draw(self) -> bool:
-        return len(self.__moves) >= 42
+    def __count_points_in_line(self, point: Point, offset: Point, color: int) -> int:
+        if (
+            not 0 <= point.x < len(self.__board)
+            or not 0 <= point.y < len(self.__board[0])
+            or self.__board[point.y][point.x] != color
+        ):
+            return 0
 
-    def __is_win(self) -> bool:
-        return self.win_checker.check_win(self.__board)
+        return 1 + self.__count_points_in_line(point - offset, point + offset, color)
 
     def get_valid_moves(self) -> list[int]:
         return [move for move in range(7) if self.__check_illegal_move(move)]
