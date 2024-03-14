@@ -110,6 +110,6 @@ class ConnectFourEngine:
 
         return best_value
 
-    def random_valid_move(self) -> str:
+    def get_random_move(self) -> str:
         move = str(random.choice(self.__judge.get_valid_moves()))
         return move
