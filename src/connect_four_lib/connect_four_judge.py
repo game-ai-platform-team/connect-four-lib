@@ -1,6 +1,5 @@
 from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.game_state import GameState
-from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.judge import Judge
 from connect_four_lib.point import Point
 
@@ -10,11 +9,9 @@ class ConnectFourJudge(Judge):
         self,
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
-        heuristic: ConnectFourHeuristic | None = None,
     ) -> None:
         self.__board: list[list[int]] = board or self.initialize_board()
         self.__moves: list[int] = moves or []
-        self.__heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
     @property
     def board(self) -> list[list[int]]:
@@ -61,8 +58,6 @@ class ConnectFourJudge(Judge):
 
         self.__board[point.y][point.x] = (len(self.__moves)) % 2 + 1
         self.__moves.append(column)
-        self.__heuristic.evaluate_relevant_windows(point.y, point.x, self.board)
-
         return point
 
     def remove_last_move(self) -> tuple[int, int]:
