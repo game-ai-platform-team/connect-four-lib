@@ -118,7 +118,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __is_draw(self) -> bool:
-        return len(self.__moves) >= 42
+        return len(self.__moves) + 1 >= 42
 
     def __is_win(self, point: Point) -> bool:
         offsets = [Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)]
