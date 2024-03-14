@@ -5,7 +5,8 @@
             "name": "Python: Debug test",
             "type": "debugpy",
             "request": "launch",
-            "module": "pytest"
+            "module": "pytest",
+            "args": ["${file}"]
         },
         {
             "name": "Python: Debug",
