@@ -9,3 +9,6 @@ load-plugins = pylint.extensions.mccabe
 
 [TYPECHECK]
 ignored-classes=BaseBoard
+
+[DESIGN]
+max-args=6
