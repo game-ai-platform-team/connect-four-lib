@@ -74,11 +74,14 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if depth == 0 or self.judge.validate(str(move)) not in [
+        if self.judge.validate(str(move)) not in [
             GameState.CONTINUE,
             GameState.DRAW,
             GameState.WIN,
         ]:
+            return -INFINITY
+
+        if depth == 0:
             return self.judge.analyze(self.__color)
 
         if maximizing:
