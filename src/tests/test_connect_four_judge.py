@@ -97,16 +97,10 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_play_a_full_game_that_results_in_a_draw(self):
         judge = ConnectFourJudge()
 
-        for _ in range(6):
-            judge.add_move(0)
-            judge.add_move(1)
-            judge.add_move(2)
-            judge.add_move(4)
-            judge.add_move(3)
-            judge.add_move(5)
-            judge.add_move(6)
+        for i in range(41):
+            judge.add_move(str(i % 7))
 
-        self.assertEqual(judge.is_game_over(), GameState.DRAW)
+        self.assertEqual(judge.validate("6"), GameState.DRAW)
 
     def test_horizontal_win_is_recognized(self):
         for i in [0, 0, 1, 1, 2, 2, 3]:
