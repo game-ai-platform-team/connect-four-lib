@@ -79,7 +79,7 @@ class TestConnectFourEngine(TestCase):
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "3")
 
-    def test_get_best_move_makes_winning_move_in_upwards_diagonal(self):
+    def test_get_best_move_makes_winning_move_in_upwards_diagonal_2(self):
         for i in ["0", "1", "2", "3", "1", "2", "0", "1", "0"]:
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "0")
