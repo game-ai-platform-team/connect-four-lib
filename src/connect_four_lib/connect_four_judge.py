@@ -47,14 +47,14 @@ class ConnectFourJudge(Judge):
         if self.__is_draw():
             state = GameState.DRAW
 
-        if self.__is_win(self.__get_point_of_move(move)):
+        if self.__is_win(self.__get_position_of_move(move)):
             state = GameState.WIN
 
         return state
 
     def add_move(self, move: str) -> Point:
         column = int(move)
-        point = self.__get_point_of_move(move)
+        point = self.__get_position_of_move(move)
 
         self.__board[point.y][point.x] = (len(self.__moves)) % 2 + 1
         self.__moves.append(column)
@@ -120,7 +120,7 @@ class ConnectFourJudge(Judge):
 
         return 4 in consecutive_points
 
-    def __get_point_of_move(self, move: str) -> Point:
+    def __get_position_of_move(self, move: str) -> Point:
         column = int(move)
 
         for row, point in enumerate(self.__board[column]):
