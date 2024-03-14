@@ -21,7 +21,7 @@ class ConnectFourEngine:
         self.__color: int = color
 
     def __is_timeout(self) -> bool:
-        time_used = int((time.perf_counter() - self.__start_time) * 1000)
+        time_used = (time.process_time() - self.__start_time) * 1000
         return time_used >= self.__difficulty
 
     def add_move(self, move: str) -> None:
@@ -42,7 +42,7 @@ class ConnectFourEngine:
         self.__color = len(self.judge.get_all_moves()) % 2 + 1
         depth = 1
         best_move = self.__choices[0]
-        self.__start_time = time.perf_counter()
+        self.__start_time = time.process_time()
 
         while not self.__is_timeout():
             best_move = max(
