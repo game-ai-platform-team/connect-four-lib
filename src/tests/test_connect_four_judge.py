@@ -116,10 +116,15 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(judge1.validate("3"), GameState.WIN)
         self.assertEqual(judge2.validate("4"), GameState.WIN)
 
-    def test_vertical_win_is_recognized_part_two(self):
-        for i in [0, 6, 6, 6, 0, 6, 0, 6, 2, 6]:
-            self.judge.add_move(i)
-        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+    def test_vertical_win_is_recognized(self):
+        judge1 = ConnectFourJudge()
+        judge2 = ConnectFourJudge()
+
+        self.add_multiple_moves(judge1, [0, 1, 0, 1, 0, 1])
+        self.add_multiple_moves(judge2, [5, 6, 4, 6, 2, 6, 1])
+
+        self.assertEqual(judge1.validate("0"), GameState.WIN)
+        self.assertEqual(judge2.validate("6"), GameState.WIN)
 
     def test_upwards_diagonal_win_is_recognized(self):
         for i in [1, 0, 3, 3, 3, 2, 2, 4, 4, 4, 4]:
