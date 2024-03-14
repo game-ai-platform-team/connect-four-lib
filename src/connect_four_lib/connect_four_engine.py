@@ -13,12 +13,14 @@ class ConnectFourEngine:
         judge: ConnectFourJudge | None = None,
         choices: list[int] | None = None,
         color: int = -1,
+        weight: int = 2,
     ) -> None:
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
         self.__color: int = color
+        self.__weight: int = weight
 
     def __is_timeout(self) -> bool:
         time_used = (time.process_time() - self.__start_time) * 1000
@@ -89,7 +91,7 @@ class ConnectFourEngine:
 
             for next_move in self.__choices:
                 self.judge.add_move(str(move))
-                new_value = 10**depth * self.min_max(
+                new_value = self.__weight**depth * self.min_max(
                     next_move, depth - 1, False, alpha, beta
                 )
                 self.judge.remove_last_move()
@@ -104,7 +106,7 @@ class ConnectFourEngine:
 
             for next_move in self.__choices:
                 self.judge.add_move(str(move))
-                new_value = 10**depth * self.min_max(
+                new_value = self.__weight**depth * self.min_max(
                     next_move, depth - 1, True, alpha, beta
                 )
                 self.judge.remove_last_move()
