@@ -110,10 +110,17 @@ class TestConnectFourJudge(unittest.TestCase):
         )
 
     def test_play_a_full_game_that_results_in_a_draw(self):
-        judge = ConnectFourJudge()
+        board = [
+            [1, 1, 2, 2, 1, 1],
+            [2, 2, 1, 1, 2, 2],
+            [1, 1, 2, 2, 1, 2],
+            [2, 2, 1, 1, 2, 2],
+            [1, 1, 2, 2, 1, 1],
+            [2, 2, 1, 1, 2, 2],
+            [1, 1, 2, 2, 1, 0],
+        ]
 
-        for i in range(41):
-            judge.add_move(str(i % 7))
+        judge = ConnectFourJudge(board=board, moves=[0] * 41)
 
         self.assertEqual(judge.validate("6"), GameState.DRAW)
 

@@ -114,7 +114,7 @@ class ConnectFourJudge(Judge):
             for direction in directions
         ]
 
-        return 4 in consecutive_points
+        return max(consecutive_points) >= 4
 
     def __get_position_of_move(self, move: str) -> Point:
         column = int(move)
