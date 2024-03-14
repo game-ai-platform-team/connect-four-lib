@@ -1,6 +1,6 @@
 import cProfile
 
-from connect_four_lib.heuristic import Heuristic
+from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     ]
 
     for _ in range(1000):
-        Heuristic.evaluate(board, 1)
+        ConnectFourHeuristic.evaluate(board, 1)
 
 
 cProfile.run("main()", sort="tottime")

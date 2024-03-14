@@ -3,7 +3,7 @@ from functools import cache
 BIG_INTEGER = 1000
 
 
-class Heuristic:
+class ConnectFourHeuristic:
     @cache
     @staticmethod
     def __get_point(column: int, row: int, board: list[list[int]]) -> int:
@@ -19,16 +19,16 @@ class Heuristic:
         windows = []
 
         windows.append(
-            tuple(Heuristic.__get_point(column, row + i, board) for i in range(4))
+            tuple(ConnectFourHeuristic.__get_point(column, row + i, board) for i in range(4))
         )
         windows.append(
-            tuple(Heuristic.__get_point(column + i, row, board) for i in range(4))
+            tuple(ConnectFourHeuristic.__get_point(column + i, row, board) for i in range(4))
         )
         windows.append(
-            tuple(Heuristic.__get_point(column + i, row + i, board) for i in range(4))
+            tuple(ConnectFourHeuristic.__get_point(column + i, row + i, board) for i in range(4))
         )
         windows.append(
-            tuple(Heuristic.__get_point(column + i, row - i, board) for i in range(4))
+            tuple(ConnectFourHeuristic.__get_point(column + i, row - i, board) for i in range(4))
         )
 
         return windows
@@ -56,11 +56,11 @@ class Heuristic:
 
         for column in range(len(board)):
             for row in range(len(board[0])):
-                windows.extend(Heuristic.__get_windows(column, row, hashable_board))
+                windows.extend(ConnectFourHeuristic.__get_windows(column, row, hashable_board))
 
         evaluation = sum(
-            Heuristic._evaluate_window(window, color)
-            - Heuristic._evaluate_window(window, 3 - color)
+            ConnectFourHeuristic._evaluate_window(window, color)
+            - ConnectFourHeuristic._evaluate_window(window, 3 - color)
             for window in windows
         )
 
