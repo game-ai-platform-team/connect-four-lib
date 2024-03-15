@@ -74,7 +74,7 @@ class ConnectFourEngine:
         ]:
             return -INFINITY
 
-        if depth == 0:
+        if depth == 0 or self.__is_timeout():
             return self.__judge.analyze(self.__color)
 
         if maximizing:
