@@ -26,10 +26,9 @@ class ConnectFourEngine:
         return time_used >= self.__difficulty
 
     def __is_critical_move(self, move: str) -> bool:
-        return (
-            self.__judge.validate(str(move)) == GameState.WIN
-            or self.__judge.is_lose(move)
-        )
+        return self.__judge.validate(
+            str(move)
+        ) == GameState.WIN or self.__judge.is_lose(move)
 
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
