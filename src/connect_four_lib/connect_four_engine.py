@@ -25,6 +25,12 @@ class ConnectFourEngine:
         time_used = (time.process_time() - self.__start_time) * 1000
         return time_used >= self.__difficulty
 
+    def __is_critical_move(self, move: str) -> bool:
+        return (
+            self.__judge.validate(str(move)) == GameState.WIN
+            or self.__judge.is_lose(move)
+        )
+
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
 
@@ -41,6 +47,10 @@ class ConnectFourEngine:
             best_move = max(
                 self.__choices, key=lambda move: self.min_max(move, depth, False)
             )
+
+            if depth == 1 and self.__is_critical_move(str(best_move)):
+                break
+
             depth += 1
 
         return str(best_move)
