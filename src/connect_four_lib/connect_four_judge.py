@@ -103,9 +103,12 @@ class ConnectFourJudge(Judge):
     def __is_draw(self) -> bool:
         return len(self.__moves) + 1 >= 42
 
-    def __is_win(self, point: Point) -> bool:
+    def __is_win(self, point: Point, block = False) -> bool:
         directions = [Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)]
         color = len(self.get_all_moves()) % 2 + 1
+
+        if block:
+            color = (len(self.get_all_moves())+1) % 2 + 1
 
         consecutive_points = [
             1
@@ -115,6 +118,9 @@ class ConnectFourJudge(Judge):
         ]
 
         return max(consecutive_points) >= 4
+
+    def is_lose(self, move) -> bool:
+        return self.__is_win(self.__get_position_of_move(move), True)
 
     def __get_position_of_move(self, move: str) -> Point:
         column = int(move)
