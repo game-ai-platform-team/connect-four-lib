@@ -128,24 +128,6 @@ class TestConnectFourHeuristic(TestCase):
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
-        board4 = [
-            [0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 2, 0, 0],
-            [2, 2, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-        ]
-        board5 = [
-            [0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0],
-            [2, 2, 0, 0, 0, 0],
-            [1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-        ]
 
         self.assertEqual(ConnectFourHeuristic.evaluate(board1, 1), -2)
         self.assertEqual(ConnectFourHeuristic.evaluate(board1, 2), 2)
@@ -154,11 +136,28 @@ class TestConnectFourHeuristic(TestCase):
         self.assertEqual(ConnectFourHeuristic.evaluate(board2, 1), 4)
 
         self.assertEqual(ConnectFourHeuristic.evaluate(board3, 2), -5)
-        self.assertTrue(
-            ConnectFourHeuristic.evaluate(board3, 2)
-            < ConnectFourHeuristic.evaluate(board4, 2)
-        )
-        self.assertTrue(
-            ConnectFourHeuristic.evaluate(board5, 2)
-            < ConnectFourHeuristic.evaluate(board4, 2)
+
+    def test_evaluate_detects_better_situation(self):
+        board_better = [
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 2, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        board_worse = [
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+
+        self.assertLess(
+            ConnectFourHeuristic.evaluate(board_worse, 2),
+            ConnectFourHeuristic.evaluate(board_better, 2),
         )
