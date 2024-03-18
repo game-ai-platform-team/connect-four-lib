@@ -78,4 +78,9 @@ class ConnectFourHeuristic:
             for window in windows
         )
 
+        if evaluation >= 5000:
+            evaluation = MAX_HEURISTIC
+        elif evaluation <= -5000:
+            evaluation = -MAX_HEURISTIC
+
         return evaluation
