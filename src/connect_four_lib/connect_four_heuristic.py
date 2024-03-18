@@ -1,6 +1,6 @@
 from functools import cache
 
-from connect_four_lib.config import MAX_HEURISTIC
+from connect_four_lib.config import MAX_HEURISTIC, HEURISTIC_BASE
 
 
 class ConnectFourHeuristic:
@@ -57,7 +57,7 @@ class ConnectFourHeuristic:
             return MAX_HEURISTIC
 
         if points + empty_points == 4:
-            evaluation = points
+            evaluation = HEURISTIC_BASE**points
 
         return evaluation
 
