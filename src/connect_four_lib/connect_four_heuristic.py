@@ -1,6 +1,6 @@
 from functools import cache
 
-from connect_four_lib.config import MAX_HEURISTIC, HEURISTIC_BASE
+from connect_four_lib.config import HEURISTIC_BASE, MAX_HEURISTIC
 
 
 class ConnectFourHeuristic:

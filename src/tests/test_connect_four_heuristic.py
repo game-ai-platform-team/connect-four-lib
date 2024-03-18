@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 from connect_four_lib.config import MAX_HEURISTIC
+from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
 
 
 class TestConnectFourHeuristic(TestCase):
