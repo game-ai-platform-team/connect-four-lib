@@ -110,7 +110,9 @@ class TestConnectFourEngine(TestCase):
             [2, 1, 2, 1, 1, 2],
             [1, 2, 0, 0, 0, 0],
         ]
-        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board1, moves=[0] * 29))
+        engine1 = ConnectFourEngine(
+            judge=ConnectFourJudge(board=board1, moves=[0] * 29)
+        )
 
         self.assertEqual(engine1.get_best_move(), 0)
 
