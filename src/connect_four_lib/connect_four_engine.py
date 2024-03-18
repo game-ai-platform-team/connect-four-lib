@@ -26,8 +26,7 @@ class ConnectFourEngine:
         return time_used >= self.__difficulty
 
     def __is_critical_move(self, move: str) -> bool:
-        return self.__judge.check_win(move
-        ) or self.__judge.is_lose(move)
+        return self.__judge.check_win(move) or self.__judge.is_lose(move)
 
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
@@ -78,9 +77,7 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if (self.__judge.is_game_over() != GameState.CONTINUE
-            or depth == 0
-            ):
+        if self.__judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.__weight**depth * self.__judge.analyze(self.__color)
 
         if self.__is_timeout():
@@ -88,12 +85,12 @@ class ConnectFourEngine:
 
         if depth == 0:
             return None, self.__judge.analyze(self.__color)
-        
+
         best_move = None
-        
+
         if maximizing:
             best_value = -INFINITY
-            
+
             for next_move in self.__choices:
                 if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
                     print("continue")

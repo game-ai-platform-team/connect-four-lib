@@ -46,7 +46,7 @@ class ConnectFourJudge(Judge):
         if self.__is_draw():
             return GameState.DRAW
 
-        if len(self.__moves) >= 1: 
+        if len(self.__moves) >= 1:
             if self.__is_win(self.__get_position_of_move(str(self.__moves[-1]))):
                 return GameState.WIN
 

@@ -126,7 +126,9 @@ class TestConnectFourEngine(TestCase):
             [0, 0, 0, 0, 0, 0],
         ]
 
-        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board1, moves=[3, 3, 2]))
+        engine1 = ConnectFourEngine(
+            judge=ConnectFourJudge(board=board1, moves=[3, 3, 2])
+        )
 
         self.assertIn(engine1.get_best_move(), ["2", "4"])
 
@@ -151,7 +153,9 @@ class TestConnectFourEngine(TestCase):
         ]
         engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board, moves=[2] * 20))
 
-        self.assertEqual(engine1.get_best_move(), "3") #should be 4 but heuristics says 3 is better
+        self.assertEqual(
+            engine1.get_best_move(), "3"
+        )  # should be 4 but heuristics says 3 is better
 
     def test_get_best_move_blocks_opponents_immediate_win(self):
         board = [
