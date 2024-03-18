@@ -101,6 +101,19 @@ class TestConnectFourEngine(TestCase):
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "1")
 
+        board1 = [
+            [2, 2, 2, 0, 0, 0],
+            [2, 1, 2, 1, 2, 1],
+            [2, 1, 1, 0, 0, 0],
+            [1, 2, 1, 2, 1, 2],
+            [1, 1, 0, 0, 0, 0],
+            [2, 1, 2, 1, 1, 2],
+            [1, 2, 0, 0, 0, 0],
+        ]
+        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board1, moves=[0] * 29))
+
+        self.assertEqual(engine1.get_best_move(), 0)
+
     def test_get_best_move_blocks_opponents_win_row(self):
         for i in ["0", "3", "0", "1", "3", "2"]:
             self.engine_with_judge.add_move(i)
@@ -131,3 +144,39 @@ class TestConnectFourEngine(TestCase):
 
         self.assertIn(engine1.get_best_move(), ["2", "4"])
 
+    def test_engine_prefers_middle_column_in_beginning(self):
+        move_list = []
+        for i in range(3):
+            best_move = self.engine_with_judge.get_best_move()
+            move_list.append(best_move)
+            self.engine_with_judge.add_move(best_move)
+
+        self.assertEqual(move_list, ["3", "3", "3"])
+
+    def test_get_best_move_goes_for_the_quickest_win(self):
+        board = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [2, 2, 1, 2, 0, 0],
+            [2, 1, 0, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 1, 1, 2, 1, 2],
+            [1, 2, 0, 0, 0, 0],
+        ]
+        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board, moves=[0] * 20))
+
+        self.assertEqual(engine1.get_best_move(), "4")
+
+    def test_get_best_move_blocks_opponents_immediate_win(self):
+        board = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 1, 0, 0, 0],
+            [2, 2, 1, 2, 0, 0],
+            [2, 1, 1, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0],
+            [1, 1, 1, 2, 1, 2],
+            [1, 2, 0, 0, 0, 0],
+        ]
+        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board, moves=[0] * 21))
+
+        self.assertEqual(engine1.get_best_move(), "4")
