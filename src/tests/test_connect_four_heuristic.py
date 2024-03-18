@@ -2,11 +2,12 @@ from unittest import TestCase
 
 from connect_four_lib.config import MAX_HEURISTIC
 from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
+from connect_four_lib.config import HEURISTIC_BASE, MAX_HEURISTIC
 
 
 class TestConnectFourHeuristic(TestCase):
     def setUp(self) -> None:
-        self.max_evaluation = 400
+        self.max_evaluation = 5000
 
     def test_evaluate_window_returns_big_integer_if_win(self):
         window1 = (1,) * 4
@@ -36,7 +37,8 @@ class TestConnectFourHeuristic(TestCase):
 
         for window in windows:
             self.assertEqual(
-                window.count(1), ConnectFourHeuristic._evaluate_window(window, 1)
+                HEURISTIC_BASE ** window.count(1),
+                ConnectFourHeuristic._evaluate_window(window, 1),
             )
 
     def test_evaluate_board_detects_horizontal_win(self):
