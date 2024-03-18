@@ -115,3 +115,19 @@ class TestConnectFourEngine(TestCase):
         for i in ["3", "3", "3", "2", "2", "2", "1", "1", "1", "1"]:
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "4")
+
+    def test_get_best_move_blocks_opponents_horizontal_win(self):
+        board1 = [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+
+        engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board1, moves=[0] * 3))
+
+        self.assertIn(engine1.get_best_move(), ["2", "4"])
+
