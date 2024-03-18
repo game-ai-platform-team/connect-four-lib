@@ -95,3 +95,23 @@ class TestConnectFourEngine(TestCase):
         for i in ["0", "1", "2", "3", "1", "2", "0", "1", "0"]:
             self.engine_with_judge.add_move(i)
         self.assertEqual(self.engine_with_judge.get_best_move(), "0")
+
+    def test_get_best_move_blocks_opponents_win_column(self):
+        for i in ["1", "2", "1", "2", "1"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "1")
+
+    def test_get_best_move_blocks_opponents_win_row(self):
+        for i in ["0", "3", "0", "1", "3", "2"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "4")
+
+    def test_get_best_move_blocks_opponents_win_diagonal_up(self):
+        for i in ["3", "3", "3", "4", "4", "4", "5", "5", "5", "5"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "2")
+
+    def test_get_best_move_blocks_opponents_win_diagonal_down(self):
+        for i in ["3", "3", "3", "2", "2", "2", "1", "1", "1", "1"]:
+            self.engine_with_judge.add_move(i)
+        self.assertEqual(self.engine_with_judge.get_best_move(), "4")
