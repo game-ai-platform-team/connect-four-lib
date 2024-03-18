@@ -1,5 +1,6 @@
 import unittest
 
+from connect_four_lib import judge
 from connect_four_lib.connect_four_judge import ConnectFourJudge
 from connect_four_lib.game_state import GameState
 
@@ -32,8 +33,8 @@ class TestConnectFourJudge(unittest.TestCase):
         board1 = [
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
-            [2, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0],
             [2, 1, 2, 0, 0, 0],
             [1, 2, 1, 0, 0, 0],
             [2, 1, 2, 1, 0, 0],
@@ -43,16 +44,16 @@ class TestConnectFourJudge(unittest.TestCase):
             [2, 0, 0, 0, 0, 0],
             [2, 2, 0, 0, 0, 0],
             [1, 1, 2, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0],
+            [1, 1, 1, 2, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
 
-        judge1 = ConnectFourJudge(board=board1)
-        judge2 = ConnectFourJudge(board=board2)
+        judge1 = ConnectFourJudge(board=board1, moves=[3] * 11)
+        judge2 = ConnectFourJudge(board=board2, moves=[2] * 10)
 
-        self.assertEqual(judge1.validate(str(3)), GameState.WIN)
-        self.assertEqual(judge2.validate(str(4)), GameState.WIN)
+        self.assertEqual(judge1.is_game_over(), GameState.WIN)
+        self.assertEqual(judge2.is_game_over(), GameState.WIN)
 
     def test_move_outside_board_return_invalid_state(self):
         self.assertEqual(self.judge.validate("-1"), GameState.INVALID)

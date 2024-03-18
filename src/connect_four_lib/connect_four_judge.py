@@ -39,12 +39,16 @@ class ConnectFourJudge(Judge):
 
         if not self.__check_illegal_move(int(move)):
             return GameState.ILLEGAL
+        return state
 
+    def is_game_over(self) -> GameState:
+        state = GameState.CONTINUE
         if self.__is_draw():
-            state = GameState.DRAW
+            return GameState.DRAW
 
-        if self.__is_win(self.__get_position_of_move(move)):
-            state = GameState.WIN
+        if len(self.__moves) >= 1: 
+            if self.__is_win(self.__get_position_of_move(str(self.__moves[-1]))):
+                return GameState.WIN
 
         return state
 
@@ -101,7 +105,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __is_draw(self) -> bool:
-        return len(self.__moves) + 1 >= 42
+        return len(self.__moves) >= 42
 
     def __is_win(self, point: Point, block=False) -> bool:
         directions = [Point(0, 1), Point(1, 0), Point(1, 1), Point(1, -1)]
@@ -119,7 +123,10 @@ class ConnectFourJudge(Judge):
 
         return max(consecutive_points) >= 4
 
-    def is_lose(self, move) -> bool:
+    def check_win(self, move: str) -> bool:
+        return self.__is_win(self.__get_position_of_move(move))
+
+    def is_lose(self, move: str) -> bool:
         return self.__is_win(self.__get_position_of_move(move), True)
 
     def __get_position_of_move(self, move: str) -> Point:

@@ -26,9 +26,8 @@ class ConnectFourEngine:
         return time_used >= self.__difficulty
 
     def __is_critical_move(self, move: str) -> bool:
-        return self.__judge.validate(
-            str(move)
-        ) == GameState.WIN or self.__judge.is_lose(move)
+        return self.__judge.check_win(move
+        ) or self.__judge.is_lose(move)
 
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
@@ -44,27 +43,27 @@ class ConnectFourEngine:
 
         while not self.__is_timeout():
             try:
-                best_move = max(
-                    self.__choices, key=lambda move: self.min_max(move, depth, False)
-                )
+                best_move = self.min_max(depth, True)[0]
             except TimeoutError:
                 break
 
+            print(str(best_move))
             if depth == 1 and self.__is_critical_move(str(best_move)):
                 break
 
             depth += 1
+            if depth + len(self.__judge.get_all_moves()) > 42:
+                break
 
         return str(best_move)
 
     def min_max(
         self,
-        move: int,
         depth: int,
         maximizing: bool = True,
         alpha: float = -INFINITY,
         beta: float = INFINITY,
-    ) -> float:
+    ) -> tuple:
         """
         Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
 
@@ -79,30 +78,33 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if self.__judge.validate(str(move)) not in [
-            GameState.CONTINUE,
-            GameState.DRAW,
-            GameState.WIN,
-        ]:
-            return -INFINITY
+        if (self.__judge.is_game_over() != GameState.CONTINUE
+            or depth == 0
+            ):
+            return None, self.__weight**depth * self.__judge.analyze(self.__color)
 
         if self.__is_timeout():
             raise TimeoutError
 
         if depth == 0:
-            return self.__judge.analyze(self.__color)
-
+            return None, self.__judge.analyze(self.__color)
+        
+        best_move = None
+        
         if maximizing:
             best_value = -INFINITY
-
+            
             for next_move in self.__choices:
-                self.__judge.add_move(str(move))
-                new_value = self.__weight**depth * self.min_max(
-                    next_move, depth - 1, False, alpha, beta
-                )
+                if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
+                    print("continue")
+                    continue
+                self.__judge.add_move(str(next_move))
+                new_value = self.min_max(depth - 1, False, alpha, beta)[1]
                 self.__judge.remove_last_move()
 
-                best_value = max(best_value, new_value)
+                if new_value > best_value:
+                    best_value = new_value
+                    best_move = next_move
                 alpha = max(alpha, best_value)
 
                 if alpha >= beta:
@@ -111,20 +113,32 @@ class ConnectFourEngine:
             best_value = INFINITY
 
             for next_move in self.__choices:
-                self.__judge.add_move(str(move))
-                new_value = self.__weight**depth * self.min_max(
-                    next_move, depth - 1, True, alpha, beta
-                )
+                if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
+                    continue
+                self.__judge.add_move(str(next_move))
+                new_value = self.min_max(depth - 1, True, alpha, beta)[1]
                 self.__judge.remove_last_move()
 
-                best_value = min(best_value, new_value)
+                if new_value < best_value:
+                    best_value = new_value
+                    best_move = next_move
                 beta = min(beta, best_value)
 
                 if alpha >= beta:
                     break
 
-        return best_value
+        print(best_move, best_value)
+        return best_move, best_value
 
     def get_random_move(self) -> str:
         move = str(random.choice(self.__judge.get_valid_moves()))
         return move
+
+
+if __name__ == "__main__":
+    engine1 = ConnectFourEngine()
+    engine1.add_move("3")
+    engine1.add_move("2")
+    engine1.add_move("3")
+    engine1.add_move("3")
+    print(engine1.get_best_move())
