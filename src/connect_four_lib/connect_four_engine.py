@@ -43,9 +43,12 @@ class ConnectFourEngine:
         self.__start_time = time.process_time()
 
         while not self.__is_timeout():
-            best_move = max(
-                self.__choices, key=lambda move: self.min_max(move, depth, False)
-            )
+            try:
+                best_move = max(
+                    self.__choices, key=lambda move: self.min_max(move, depth, False)
+                )
+            except TimeoutError:
+                break
 
             if depth == 1 and self.__is_critical_move(str(best_move)):
                 break
@@ -83,7 +86,10 @@ class ConnectFourEngine:
         ]:
             return -INFINITY
 
-        if depth == 0 or self.__is_timeout():
+        if self.__is_timeout():
+            raise TimeoutError
+
+        if depth == 0:
             return self.__judge.analyze(self.__color)
 
         if maximizing:
