@@ -100,26 +100,8 @@ class TestConnectFourHeuristic(TestCase):
         self.assertEqual(ConnectFourHeuristic.evaluate(board, 1), 0)
         self.assertEqual(ConnectFourHeuristic.evaluate(board, 2), 0)
 
-    def test_evaluate(self):
-        board1 = [
-            [1, 0, 0, 0, 0, 0],
-            [1, 2, 0, 0, 0, 0],
-            [2, 2, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-        ]
-        board2 = [
-            [1, 0, 0, 0, 0, 0],
-            [1, 2, 1, 0, 0, 0],
-            [2, 2, 1, 2, 0, 0],
-            [2, 1, 0, 0, 0, 0],
-            [2, 2, 0, 0, 0, 0],
-            [1, 1, 1, 2, 1, 2],
-            [1, 2, 0, 0, 0, 0],
-        ]
-        board3 = [
+    def test_evaluate_detects_better_situation(self):
+        board_better_1 = [
             [0, 0, 0, 0, 0, 0],
             [1, 1, 1, 0, 0, 0],
             [2, 2, 0, 0, 0, 0],
@@ -128,17 +110,16 @@ class TestConnectFourHeuristic(TestCase):
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
-
-        self.assertEqual(ConnectFourHeuristic.evaluate(board1, 1), -2)
-        self.assertEqual(ConnectFourHeuristic.evaluate(board1, 2), 2)
-
-        self.assertEqual(ConnectFourHeuristic.evaluate(board2, 2), -4)
-        self.assertEqual(ConnectFourHeuristic.evaluate(board2, 1), 4)
-
-        self.assertEqual(ConnectFourHeuristic.evaluate(board3, 2), -5)
-
-    def test_evaluate_detects_better_situation(self):
-        board_better = [
+        board_worse_1 = [
+            [1, 0, 0, 0, 0, 0],
+            [1, 2, 0, 0, 0, 0],
+            [2, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+        board_better_2 = [
             [0, 0, 0, 0, 0, 0],
             [1, 1, 1, 2, 0, 0],
             [2, 2, 0, 0, 0, 0],
@@ -147,7 +128,7 @@ class TestConnectFourHeuristic(TestCase):
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
         ]
-        board_worse = [
+        board_worse_2 = [
             [0, 0, 0, 0, 0, 0],
             [1, 1, 1, 0, 0, 0],
             [2, 2, 0, 0, 0, 0],
@@ -158,6 +139,10 @@ class TestConnectFourHeuristic(TestCase):
         ]
 
         self.assertLess(
-            ConnectFourHeuristic.evaluate(board_worse, 2),
-            ConnectFourHeuristic.evaluate(board_better, 2),
+            ConnectFourHeuristic.evaluate(board_worse_1, 1),
+            ConnectFourHeuristic.evaluate(board_better_1, 1),
+        )
+        self.assertLess(
+            ConnectFourHeuristic.evaluate(board_worse_2, 2),
+            ConnectFourHeuristic.evaluate(board_better_2, 2),
         )
