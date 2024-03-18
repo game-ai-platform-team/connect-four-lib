@@ -1,6 +1,6 @@
 from functools import cache
 
-BIG_INTEGER = 1000
+from connect_four_lib.config import MAX_HEURISTIC
 
 
 class ConnectFourHeuristic:
@@ -54,7 +54,7 @@ class ConnectFourHeuristic:
         evaluation = 0
 
         if points == 4:
-            return BIG_INTEGER
+            return MAX_HEURISTIC
 
         if points + empty_points == 4:
             evaluation = points

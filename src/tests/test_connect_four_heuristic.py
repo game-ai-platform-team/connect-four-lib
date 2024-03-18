@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from connect_four_lib.connect_four_heuristic import BIG_INTEGER, ConnectFourHeuristic
+from connect_four_lib.connect_four_heuristic import ConnectFourHeuristic
+from connect_four_lib.config import MAX_HEURISTIC
 
 
 class TestConnectFourHeuristic(TestCase):
@@ -11,8 +12,12 @@ class TestConnectFourHeuristic(TestCase):
         window1 = (1,) * 4
         window2 = (2,) * 4
 
-        self.assertEqual(ConnectFourHeuristic._evaluate_window(window1, 1), BIG_INTEGER)
-        self.assertEqual(ConnectFourHeuristic._evaluate_window(window2, 2), BIG_INTEGER)
+        self.assertEqual(
+            ConnectFourHeuristic._evaluate_window(window1, 1), MAX_HEURISTIC
+        )
+        self.assertEqual(
+            ConnectFourHeuristic._evaluate_window(window2, 2), MAX_HEURISTIC
+        )
 
     def test_evaluate_window_returns_zero_if_window_contains_another_color(self):
         windows = [(-1, 0, 1, 3), (1, 0, 1, 2), (2, 2, 2, 1), (1, 2, 0, 0)]
