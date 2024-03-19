@@ -44,13 +44,14 @@ class ConnectFourEngine:
             except TimeoutError:
                 break
 
-            print(str(best_move))
-            if depth == 1 and self.__is_critical_move(str(best_move)):
+            if (
+                depth == 1
+                and self.__is_critical_move(str(best_move))
+                or depth + len(self.__judge.get_all_moves()) >= 42
+            ):
                 break
 
             depth += 1
-            if depth + len(self.__judge.get_all_moves()) > 42:
-                break
 
         return str(best_move)
 
