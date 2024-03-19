@@ -153,9 +153,7 @@ class TestConnectFourEngine(TestCase):
         ]
         engine1 = ConnectFourEngine(judge=ConnectFourJudge(board=board, moves=[2] * 20))
 
-        self.assertEqual(
-            engine1.get_best_move(), "4"
-        )
+        self.assertEqual(engine1.get_best_move(), "4")
 
     def test_get_best_move_blocks_opponents_immediate_win(self):
         board = [
