@@ -136,7 +136,7 @@ class ConnectFourJudge(Judge):
     def check_win(self, move: str) -> bool:
         return self.__is_win(self.__get_position_of_move(move), False)
 
-    def is_lose(self, move: str) -> bool:
+    def check_lose(self, move: str) -> bool:
         return self.__is_win(self.__get_position_of_move(move), False)
 
     def __get_position_of_move(self, move: str) -> Point:
