@@ -118,12 +118,12 @@ class TestConnectFourJudge(unittest.TestCase):
             [2, 2, 1, 1, 2, 2],
             [1, 1, 2, 2, 1, 1],
             [2, 2, 1, 1, 2, 2],
-            [1, 1, 2, 2, 1, 0],
+            [1, 1, 2, 2, 1, 6],
         ]
 
-        judge = ConnectFourJudge(board=board, moves=[0] * 41)
+        judge = ConnectFourJudge(board=board, moves=[0] * 42)
 
-        self.assertEqual(judge.validate("6"), GameState.DRAW)
+        self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_horizontal_win_is_recognized(self):
         judge1 = ConnectFourJudge()
