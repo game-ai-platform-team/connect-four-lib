@@ -62,7 +62,7 @@ class ConnectFourEngine:
         maximizing: bool = True,
         alpha: float = -INFINITY,
         beta: float = INFINITY,
-    ) -> tuple:
+    ) -> tuple[int | None, float]:
         """
         Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
 
