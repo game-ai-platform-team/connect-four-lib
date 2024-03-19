@@ -19,13 +19,6 @@ class ConnectFourEngine:
         self.__color: int = -1
         self.__weight: int = weight
 
-    def __is_timeout(self) -> bool:
-        time_used = (time.process_time() - self.__start_time) * 1000
-        return time_used >= self.__difficulty
-
-    def __is_critical_move(self, move: str) -> bool:
-        return self.__judge.check_win(move) or self.__judge.check_lose(move)
-
     def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
 
@@ -54,6 +47,17 @@ class ConnectFourEngine:
             depth += 1
 
         return str(best_move)
+
+    def get_random_move(self) -> str:
+        move = str(random.choice(self.__judge.get_valid_moves()))
+        return move
+
+    def __is_timeout(self) -> bool:
+        time_used = (time.process_time() - self.__start_time) * 1000
+        return time_used >= self.__difficulty
+
+    def __is_critical_move(self, move: str) -> bool:
+        return self.__judge.check_win(move) or self.__judge.check_lose(move)
 
     def __min_max(
         self,
@@ -116,7 +120,3 @@ class ConnectFourEngine:
                     break
 
         return best_move, best_value
-
-    def get_random_move(self) -> str:
-        move = str(random.choice(self.__judge.get_valid_moves()))
-        return move
