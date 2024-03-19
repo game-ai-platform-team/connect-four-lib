@@ -83,9 +83,6 @@ class ConnectFourEngine:
         if self.__judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.__weight**depth * self.__judge.analyze(self.__color)
 
-        if depth == 0:
-            return None, self.__judge.analyze(self.__color)
-
         best_move = None
 
         if maximizing:
