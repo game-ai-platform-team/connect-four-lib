@@ -77,11 +77,11 @@ class ConnectFourEngine:
             int: Evaluation of last move.
         """
 
-        if self.__judge.is_game_over() != GameState.CONTINUE or depth == 0:
-            return None, self.__weight**depth * self.__judge.analyze(self.__color)
-
         if self.__is_timeout():
             raise TimeoutError
+
+        if self.__judge.is_game_over() != GameState.CONTINUE or depth == 0:
+            return None, self.__weight**depth * self.__judge.analyze(self.__color)
 
         if depth == 0:
             return None, self.__judge.analyze(self.__color)
