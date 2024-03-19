@@ -137,7 +137,7 @@ class ConnectFourJudge(Judge):
         return self.__is_win(self.__get_position_of_move(move), False)
 
     def check_lose(self, move: str) -> bool:
-        return self.__is_win(self.__get_position_of_move(move), False)
+        return self.__is_win(self.__get_position_of_move(move), True)
 
     def __get_position_of_move(self, move: str) -> Point:
         column = int(move)
