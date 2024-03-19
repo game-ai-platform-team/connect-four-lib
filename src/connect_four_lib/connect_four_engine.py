@@ -40,7 +40,7 @@ class ConnectFourEngine:
 
         while not self.__is_timeout():
             try:
-                best_move = self.min_max(depth, True)[0]
+                best_move = self.__min_max(depth, True)[0]
             except TimeoutError:
                 break
 
@@ -55,7 +55,7 @@ class ConnectFourEngine:
 
         return str(best_move)
 
-    def min_max(
+    def __min_max(
         self,
         depth: int,
         maximizing: bool = True,
@@ -89,7 +89,7 @@ class ConnectFourEngine:
 
             for next_move in self.__judge.get_valid_moves():
                 self.__judge.add_move(str(next_move))
-                new_value = self.min_max(depth - 1, False, alpha, beta)[1]
+                new_value = self.__min_max(depth - 1, False, alpha, beta)[1]
                 self.__judge.remove_last_move()
 
                 if new_value > best_value:
@@ -104,7 +104,7 @@ class ConnectFourEngine:
 
             for next_move in self.__judge.get_valid_moves():
                 self.__judge.add_move(str(next_move))
-                new_value = self.min_max(depth - 1, True, alpha, beta)[1]
+                new_value = self.__min_max(depth - 1, True, alpha, beta)[1]
                 self.__judge.remove_last_move()
 
                 if new_value < best_value:
