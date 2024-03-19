@@ -112,7 +112,7 @@ class ConnectFourJudge(Judge):
         last_move = self.get_last_move()
 
         if not last_move:
-            raise IndexError
+            return False
 
         point = point or Point(last_move[1], last_move[0])
 
