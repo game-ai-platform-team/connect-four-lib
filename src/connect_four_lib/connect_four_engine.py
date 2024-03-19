@@ -11,11 +11,9 @@ class ConnectFourEngine:
         self,
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
-        choices: list[int] | None = None,
         weight: int = 2,
     ) -> None:
         self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
-        self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
         self.__color: int = -1
@@ -37,7 +35,7 @@ class ConnectFourEngine:
 
         self.__color = len(self.__judge.get_all_moves()) % 2 + 1
         depth = 1
-        best_move = self.__choices[0]
+        best_move = 3
         self.__start_time = time.process_time()
 
         while not self.__is_timeout():
@@ -88,9 +86,7 @@ class ConnectFourEngine:
         if maximizing:
             best_value = -INFINITY
 
-            for next_move in self.__choices:
-                if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
-                    continue
+            for next_move in self.__judge.get_valid_moves():
                 self.__judge.add_move(str(next_move))
                 new_value = self.min_max(depth - 1, False, alpha, beta)[1]
                 self.__judge.remove_last_move()
@@ -105,9 +101,7 @@ class ConnectFourEngine:
         else:
             best_value = INFINITY
 
-            for next_move in self.__choices:
-                if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
-                    continue
+            for next_move in self.__judge.get_valid_moves():
                 self.__judge.add_move(str(next_move))
                 new_value = self.min_max(depth - 1, True, alpha, beta)[1]
                 self.__judge.remove_last_move()
