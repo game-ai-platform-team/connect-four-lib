@@ -90,7 +90,6 @@ class ConnectFourEngine:
 
             for next_move in self.__choices:
                 if self.__judge.validate(str(next_move)) != GameState.CONTINUE:
-                    print("continue")
                     continue
                 self.__judge.add_move(str(next_move))
                 new_value = self.min_max(depth - 1, False, alpha, beta)[1]
@@ -121,7 +120,6 @@ class ConnectFourEngine:
                 if alpha >= beta:
                     break
 
-        print(best_move, best_value)
         return best_move, best_value
 
     def get_random_move(self) -> str:
