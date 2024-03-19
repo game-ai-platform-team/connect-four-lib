@@ -114,7 +114,7 @@ class ConnectFourJudge(Judge):
         if not last_move:
             raise IndexError
 
-        point = point or Point(last_move[0], last_move[1])
+        point = point or Point(last_move[1], last_move[0])
 
         consecutive_points = [
             1
