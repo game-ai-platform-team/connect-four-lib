@@ -120,12 +120,3 @@ class ConnectFourEngine:
     def get_random_move(self) -> str:
         move = str(random.choice(self.__judge.get_valid_moves()))
         return move
-
-
-if __name__ == "__main__":
-    engine1 = ConnectFourEngine()
-    engine1.add_move("3")
-    engine1.add_move("2")
-    engine1.add_move("3")
-    engine1.add_move("3")
-    print(engine1.get_best_move())
