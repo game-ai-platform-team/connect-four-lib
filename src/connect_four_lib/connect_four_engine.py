@@ -35,7 +35,7 @@ class ConnectFourEngine:
 
         self.__color = len(self.__judge.get_all_moves()) % 2 + 1
         depth = 1
-        best_move = 3
+        best_move = self.__judge.get_valid_moves()[0]
         self.__start_time = time.process_time()
 
         while not self.__is_timeout():
