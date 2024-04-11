@@ -4,16 +4,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    uses: game-ai-platform-team/workflows/.github/workflows/pypi_deploy.yml@main
 
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: game-ai-platform-team/setup-poetry@main
-    
-    - name: Configure PyPI Token
-      run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-
-    - name: Build and publish to pypi
-      run: poetry publish --build
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
