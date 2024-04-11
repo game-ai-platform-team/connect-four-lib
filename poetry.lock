@@ -168,6 +168,17 @@ graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
 
 [[package]]
+name = "duo-game-lib"
+version = "0.1.0"
+description = "Logic for turn-based duo game"
+optional = false
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "duo_game_lib-0.1.0-py3-none-any.whl", hash = "sha256:edd3a6994682d32b77c4711036210a1f080eb876cc2d6e8e2a9201f9e08c4478"},
+    {file = "duo_game_lib-0.1.0.tar.gz", hash = "sha256:d707d79f552024b7c3c4960cb7bcc7bff24fd73d5476d9a8b502f25ce2542054"},
+]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.2.0"
 description = "Backport of PEP 654 (exception groups)"
@@ -430,4 +441,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5740a7adcbd30dc733a195aac703cd604ce10b4183b209c06d03c5ecc5798fab"
+content-hash = "35d825023d13483557f5ccf0e6e8bded18894b6dfba6e839721afdd710899425"
