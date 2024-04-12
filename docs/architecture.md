@@ -3,6 +3,7 @@
 ```mermaid
 classDiagram
 
+ConnectFourPlayer --> ConnectFourEngine
 ConnectFourEngine --> ConnectFourJudge
 ConnectFourJudge --> ConnectFourHeuristic
 
