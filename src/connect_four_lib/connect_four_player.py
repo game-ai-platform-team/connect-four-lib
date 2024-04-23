@@ -10,8 +10,9 @@ class ConnectFourPlayer(Player):
         self.engine: ConnectFourEngine = ConnectFourEngine()
         self.elo: int = elo
 
-    def play(self, move) -> str:
-        self.engine.add_move(move)
+    def play(self, move: str) -> str:
+        if move:
+            self.engine.add_move(move)
 
         new_move = self.engine.get_best_move()
 
